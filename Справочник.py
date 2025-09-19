@@ -2,8 +2,6 @@ from time import localtime, strftime
 from math import sqrt
 import os
 
-
-
 #Функция "Арифметические операции"
 def arithmetic_operations():
     current_time = strftime("%d.%m.%Y в %H:%M:%S", localtime())
@@ -78,20 +76,24 @@ def if_elses():
         +"x1 = (-b + Корень из D) / 2a\n"
         +"x2 = (-b - Корень из D) / 2a\n"
         )
+    
     try:
         a = int(input("Введите значение a: "))
         b = int(input("Введите значение b: "))
         c = int(input("Введите значение c: "))
     except ValueError:
         print("\033[31m\n[ Ошибка: Введено не числовое значение ]\033[0m")
-        if_elses()
+        return if_elses()
+
     if a == 0 or b == 0 or c == 0:
         print("\u001b[33m\n[ Программа не может решать неполные квадратные уравнения ]\u001b[0m")
-        if_elses()
+        return if_elses()
+    
     num = f"{a}x^2 + {b}x + {c} = 0"
     D = b**2 - 4*a*c
     print(num)
     print(f"D = {D}")
+
     if D > 0:
         x1 = (-b + sqrt(D)) / (2*a)
         x2 = (-b - sqrt(D)) / (2*a)
@@ -112,16 +114,17 @@ def if_elses():
                      +f"Первый корень = {x1}\n"
                      +f"Второй корень = {x2}\n\n"
                      )
-    ie_file.close()
+
     try:
         d = int(input("\n[ 1 ] Повторить\n[ 2 ] Вернуться\n> "))
     except ValueError:
-        clear_console()
-        starting_point()
+        print("\033[31m[ Ошибка: Введено не числовое значение ]\033[0m")
+        return if_elses()
+    
     if d == 1:
         clear_console()
         if_elses()
-    else:
+    elif d == 2:
         clear_console()
         starting_point()
     return "Выход из функции"
@@ -133,11 +136,13 @@ def loops():
     fact = 1
     print("[","ВЫБРАНО: Циклы".center(50),"]")
     print("[","Выводит факториал числа".center(50),"]")
+    
     try:
         a = int(input("Введите число: "))
     except ValueError:
         print("\033[31m\n[ Ошибка: Введено не числовое значение ]\033[0m")
-        loops()
+        return loops()
+    
     if a < 0:
         print("\u001b[33m\n[ Для отрицательных чисел нет факториала ]\u001b[0m")
         fact = "Не определен"
@@ -150,17 +155,21 @@ def loops():
         print(f"Факториал {a} равен {fact}")
     
     with open("Использование функции Циклы.txt","a") as c_file:
-        c_file.write(f"Данные получены: {current_time}\nВведено число: {a}\nФакториал равен: {fact}\n\n")
-    c_file.close()
+        c_file.write(
+                    f"Данные получены: {current_time}\n"
+                    +f"Введено число: {a}\n"
+                    +f"Факториал равен: {fact}\n\n"
+                    )
+
     try:
-        d = int(input("[ 1 ] Повторить\n[ 2 ] Вернуться\n> "))
+        d = int(input("\n[ 1 ] Повторить\n[ 2 ] Вернуться\n> "))
     except ValueError:
-        clear_console()
-        starting_point()
+        print("\033[31m[ Ошибка: Введено не числовое значение ]\033[0m")
+        return loops()
     if d == 1:
         clear_console()
         loops()
-    else:
+    elif d == 2:
         clear_console()
         starting_point()
     return "Выход из функции"
@@ -173,40 +182,45 @@ def arrays():
     print("[","Выводит простой массив из введенных значений".center(50),"]")
     print("[","Пример: ['0', '1', '2']".center(50),"]")
     Array = []
+    
     try:
         a = int(input("Введите количество элементов в массиве: "))
     except ValueError:
         print("\033[31m\n[ Ошибка: Введено не числовое значение ]\033[0m")
-        arrays()
+        return arrays()
+    
     if a == 0:
         print("\u001b[33m\n[ Количество элементов массива: 0 ]\u001b[0m")
         Array = "[Создание массива провалилось]"
     elif a < 0:
         print("\033[31m\n[ Ошибка: отрицательное количество элементов массива ]\033[0m")
         Array = "[Создание массива провалилось]"
-    for i in range(a):
-        try:
-            b = input("Введите элементы массива: ")
-        except ValueError:
-            print("\033[31m\n[ Ошибка: введено недопустимое значение (???) ]\033[0m")
-        Array.append(b)
-    print(f"Массив: {Array}")
+    else:
+        for i in range(a):
+            try:
+                b = input("Введите элементы массива: ")
+            except ValueError:
+                print("\033[31m\n[ Ошибка: введено недопустимое значение (???) ]\033[0m")
+                return arrays()
+            Array.append(b)
+        print(f"Массив: {Array}")
+        
     with open("Использование функции Массивы.txt","a") as ar_file:
         ar_file.write(
                       f"Данные получены: {current_time}\n"
                       +f"Количество элементов массива: {a}\n"
                       +f"Элементы: {Array}\n\n"
                       )
-    ar_file.close()
+    
     try:
-        d = int(input("[ 1 ] Повторить\n[ 2 ] Вернуться\n> "))
+        d = int(input("\n[ 1 ] Повторить\n[ 2 ] Вернуться\n> "))
     except ValueError:
-        clear_console()
-        starting_point()
+        print("\033[31m[ Ошибка: Введено не числовое значение ]\033[0m")
+        return arrays()
     if d == 1:
         clear_console()
         arrays()
-    else:
+    elif d == 2:
         clear_console()
         starting_point()
     return "Выход из функции"
@@ -219,27 +233,31 @@ def matrix():
     print("[","Выводит простую матрицу из введенных значений".center(50),"]")
     print("[","Пример: [['0', '1', '2']['3', '4', '5']['6', '7', '8']]".center(50),"]")
     Matrix = []
+    
     try:
         a = int(input("Введите количество столбцов в матрице: "))
         b = int(input("Введите количество строк в матрице: "))
     except ValueError:
         print("\033[31m\n[ Ошибка: введено недопустимое значение ]\033[0m")
         matrix()
+    
     if a == 0 or b == 0:
         print("\u001b[33m\n[ Значения длины либо ширины матрицы равны нулю ]\u001b[0m")
     elif a < 0 or b < 0:
         print("\033[31m\n[ Ошибка: отрицательная ширина либо длина матрицы ]\033[0m")
-    for i in range(a):
-        n = []
-        for j in range(b):
-            try:
-                m = input("Введите элементы матрицы: ")
-            except ValueError:
-                print("\033[31m\n[ Введено недопустимое значение (???) ]\033[0m")
-                matrix()
-            n.append(m)
-        Matrix.append(n)
+    else:
+        for i in range(a):
+            n = []
+            for j in range(b):
+                try:
+                    m = input("Введите элементы матрицы: ")
+                except ValueError:
+                    print("\033[31m\n[ Введено недопустимое значение (???) ]\033[0m")
+                    matrix()
+                n.append(m)
+            Matrix.append(n)
     print(Matrix)
+
     with open("Использование функции Матрицы.txt","a") as mat_file:
         mat_file.write(
             f"Данные получены: {current_time}\n"
@@ -247,16 +265,16 @@ def matrix():
             +f"Количество строк в матрице: {b}\n"
             +f"Матрица: {Matrix}\n\n"
             )
-    mat_file.close()
+    
     try:
-        d = int(input("[ 1 ] Повторить\n[ 2 ] Вернуться\n> "))
+        d = int(input("\n[ 1 ] Повторить\n[ 2 ] Вернуться\n> "))
     except ValueError:
-        clear_console()
-        starting_point()
+        print("\033[31m[ Ошибка: Введено не числовое значение ]\033[0m")
+        return matrix()
     if d == 1:
         clear_console()
         matrix()
-    else:
+    elif d == 2:
         clear_console()
         starting_point()
     return "Выход из функции"
@@ -298,17 +316,7 @@ def ansies():
     print("[","".center(50, "-"),"]")
     print("[","Введите любой символ, чтобы выйти в главное меню".center(50),"]")
     print("[","".center(50, "-"),"]")
-    try:
-        a = input("> ")
-    except ValueError:
-        clear_console()
-        starting_point()
-    if a == 1:
-        clear_console()
-        starting_point()
-    else:
-        clear_console()
-        starting_point()
+    d = input("> ")
     return "Выход из функции"
 
 
@@ -319,6 +327,7 @@ def starting_point():
     print("Документ создан         06.08.2025 в 13:59:22")
     print("Документ завершен       00.00.0000 в 00:00:00")
     print("Документ открыт        ", current_time)
+    
     with open("Даты изменения Справочника.txt","a") as change_date_file:
         change_date_file.write(f"{current_time}\n")
         print("Текущая дата открытия файла успешно записана в текстовый файл 'Даты изменения Справочника'\n")
@@ -332,6 +341,7 @@ def starting_point():
         +"[ 6 ] [ ANSI Escape коды        ] [ Завершена 00.00.0000 в 00:00:00 ]\n"
         +"[ - ] [ Выход                   ] [ Любой ввод выходит из программы ]\n"
         )
+    
     try:
         a = int(input("> "))
     except ValueError:
@@ -354,6 +364,9 @@ def starting_point():
         return 0
 
 def clear_console():
-    os.system('cls' if os.name == 'nt' else 'clear')
-
+    if os.name == 'nt':
+        os.system('cls')
+    else:
+        os.systen('clear')
+    
 starting_point()
