@@ -1,6 +1,5 @@
 from time import localtime, strftime
 import os
-from functions import display_time
 
 def log_path():
     logs_folder = "logs"
