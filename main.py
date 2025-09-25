@@ -1,4 +1,3 @@
-from time import localtime, strftime
 import os
 
 from functions import *
