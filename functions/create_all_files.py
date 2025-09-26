@@ -1,39 +1,39 @@
-from time import localtime, strftime
 import os
+from .logging import log_types
+from .display_functions import simple_time
+from .arithmetic_operations import *
 
 def log_path():
     logs_folder = "logs"
     os.makedirs(logs_folder, exist_ok=True)
     return logs_folder
 
-def simple_time():
-    current_time = strftime("%d.%m.%Y %H:%M:%S", localtime())
-    return current_time
-
-def file_main(current_file, extra):
+def write_log(message, extra):
+    result_message = log_types(message)
     main_file_path = os.path.join(log_path(), "Действия с проектом.md")
 
-    if os.path.exists(main_file_path):
-        with open(main_file_path, "a", encoding="utf-8") as mo_file:
-            mo_file.write(f"| {current_file} | {simple_time()} | {extra} |\n")
+    if result_message == True:
+        if os.path.exists(main_file_path):
+            with open(main_file_path, "a", encoding="utf-8") as mo_file:
+                mo_file.write(f"| {message} | {simple_time()} | {extra} |\n")
+        else:
+            with open(main_file_path, "a", encoding="utf-8") as mo_file:
+                mo_file.write(
+                              f"Откройте файл в Obsidian, либо другой программе, поддерживающей MarkDown, чтобы просмотреть таблицу\n"
+                              +f"\n"
+                              +f"| Состояние | Дата | Дополнительно |\n"
+                              +f"| --- | --- | --- |\n"
+                              +f"| {current_file} | {simple_time()} | {extra} |\n"
+                              )
     else:
-        with open(main_file_path, "a", encoding="utf-8") as mo_file:
-            mo_file.write(
-                          f"Откройте файл в Obsidian, либо другой программе, поддерживающей MarkDown, чтобы просмотреть таблицу\n"
-                          +f"\n"
-                          +f"| Состояние | Дата | Дополнительно |\n"
-                          +f"| --- | --- | --- |\n"
-                          +f"| {current_file} | {simple_time()} | {extra} |\n"
-                          )
-    return 0
+        return 0
 
-
-def file_ao(a, b, plus_v, minus_v, mult, div, fdiv, rem):
+def file_ao(a, b):
     ao_file_path = os.path.join(log_path(), "1 - Арифметические операции.md")
 
     if os.path.exists(ao_file_path):
         with open(ao_file_path, "a", encoding="utf-8") as ao_open_file:
-            ao_open_file.write(f"| {simple_time()} | {a} | {b} | {plus_v} | {minus_v} | {mult} | {div} | {fdiv} | {rem} |\n")
+            ao_open_file.write(f"| {simple_time()} | {a} | {b} | {plus(a, b)} | {minus(a, b)} | {multiply(a, b)} | {divide(a, b)} | {full_divide(a, b)} | {remainder(a, b)} |\n")
     else:
         with open(ao_file_path, "a", encoding="utf-8") as ao_open_file:
             ao_open_file.write(
@@ -41,7 +41,7 @@ def file_ao(a, b, plus_v, minus_v, mult, div, fdiv, rem):
                             +f"\n"
                             +f"| Дата | Значение а | Значение b | Сложение | Вычитание | Умножение | Деление | Ц. Деление | Остаток |\n"
                             +f"| --- | --- | --- | --- | --- | --- | --- | --- | --- |\n"
-                            +f"| {simple_time()} | {a} | {b} | {plus_v} | {minus_v} | {mult} | {div} | {fdiv} | {rem} |\n"
+                            +f"| {simple_time()} | {a} | {b} | {plus(a, b)} | {minus(a, b)} | {multiply(a, b)} | {divide(a, b)} | {full_divide(a, b)} | {remainder(a, b)} |\n"
                             )
     return 0
 
