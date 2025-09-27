@@ -1,7 +1,8 @@
 import os
-from .logging import log_types
-from .display_functions import simple_time
 from .arithmetic_operations import *
+from .logging import log_check
+from .display_time import simple_time
+
 
 def log_path():
     logs_folder = "logs"
@@ -9,7 +10,7 @@ def log_path():
     return logs_folder
 
 def write_log(message, extra):
-    result_message = log_types(message)
+    result_message = log_check(message)
     main_file_path = os.path.join(log_path(), "Действия с проектом.md")
 
     if result_message == True:
@@ -28,7 +29,7 @@ def write_log(message, extra):
     else:
         return 0
 
-def file_ao(a, b):
+def file_ao_write(a, b):
     ao_file_path = os.path.join(log_path(), "1 - Арифметические операции.md")
 
     if os.path.exists(ao_file_path):
@@ -45,7 +46,7 @@ def file_ao(a, b):
                             )
     return 0
 
-def file_square_root(formula, D, result):
+def file_square_root_write(formula, D, result):
     sr_file_path = os.path.join(log_path(), "2 - Квадратный уравнение.md")
 
     if os.path.exists(sr_file_path):
@@ -63,7 +64,7 @@ def file_square_root(formula, D, result):
     return 0
 
 
-def file_factorial(num, factorial):
+def file_factorial_write(num, factorial):
     fact_file_path = os.path.join(log_path(), "3 - Факториал.md")
 
     if os.path.exists(fact_file_path):
@@ -81,7 +82,7 @@ def file_factorial(num, factorial):
     return 0
 
 
-def file_array(Array):
+def file_array_write(Array):
     array_file_path = os.path.join(log_path(), "4 - Массивы.md")
 
     if os.path.exists(array_file_path):

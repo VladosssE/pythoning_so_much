@@ -2,7 +2,7 @@ def array_create(width):
     Array = []
     count = 1
     for i in range(width):
-        elements = input(f"[ {count} ] Введите элементы массива: ")
+        elements = input(f"[ {count} ] [ Введите элементы массива ] = ")
         Array.append(elements)
         count += 1
     return Array

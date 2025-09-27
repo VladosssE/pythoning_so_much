@@ -6,6 +6,7 @@ from .create_all_files import *
 from .clear_console import *
 from .logging import *
 from .display_functions import *
+from .display_time import *
 __all__ = [
         'plus',
         'minus',
@@ -22,24 +23,34 @@ __all__ = [
         'array_add',
         'array_change',
         'array_delete',
-        'file_ao',
         'write_log',
         'log_path',
         'simple_time',
-        'file_square_root',
         'clear_console',
-        'file_factorial',
-        'file_array',
-        'log_types',
+        'file_ao_write',
+        'file_square_root_write',
+        'file_factorial_write',
+        'file_array_write',
+        'log_check',
         'log_read',
         'log_create',
         'display_main',
         'display_arithmetic',
+        'display_arithmetic_input',
         'display_arithmetic_math',
         'display_square_root',
+        'display_square_root_input',
         'display_square_root_math',
         'display_factorial',
+        'display_factorial_input',
         'display_factorial_math',
         'display_array',
-        'display_array_math'
+        'display_array_input',
+        'display_array_math',
+        'display_array_actions',
+        'display_array_item_find',
+        'display_array_item_add',
+        'display_array_item_change',
+        'display_array_item_delete',
+        'display_log_settings'
         ]
