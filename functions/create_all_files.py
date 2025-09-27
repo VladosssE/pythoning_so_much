@@ -24,7 +24,7 @@ def write_log(message, extra):
                               +f"\n"
                               +f"| Состояние | Дата | Дополнительно |\n"
                               +f"| --- | --- | --- |\n"
-                              +f"| {current_file} | {simple_time()} | {extra} |\n"
+                              +f"| {message} | {simple_time()} | {extra} |\n"
                               )
     else:
         return 0
