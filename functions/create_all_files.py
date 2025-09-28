@@ -24,7 +24,7 @@ def write_log(message, extra):
                               +f"\n"
                               +f"| Состояние | Дата | Дополнительно |\n"
                               +f"| --- | --- | --- |\n"
-                              +f"| {message} | {simple_time()} | {extra} |\n"
+                              +f"| Файл создан | {simple_time()} | Первое открытие проекта |\n"
                               )
     else:
         return 0
@@ -96,5 +96,59 @@ def file_array_write(Array):
                             +f"| Дата | Массив |\n"
                             +f"| --- | --- |\n"
                             +f"| {simple_time()} | {Array} |\n"
+                            )
+    return 0
+
+
+def file_matrix_write(Matrix):
+    matrix_file_path = os.path.join(log_path(), "5 - Матрицы.md")
+
+    if os.path.exists(matrix_file_path):
+        with open (matrix_file_path, "a", encoding="utf-8") as ma_open_file:
+            ma_open_file.write(f"| {simple_time()} | {Matrix} |\n")
+    else:
+        with open(matrix_file_path, "a", encoding="utf-8") as ma_open_file:
+            ma_open_file.write(
+                            f"Откройте файл в Obsidian, либо другой программе, поддерживающей MarkDown, чтобы просмотреть таблицу\n"
+                            +f"\n"
+                            +f"| Дата | Матрица |\n"
+                            +f"| --- | --- |\n"
+                            +f"| {simple_time()} | {Matrix} |\n"
+                            )
+    return 0
+
+
+def file_caesar_ascii_write(start_string, bias, result):
+    caesar_ascii_file_path = os.path.join(log_path(), "6 - Шифр Цезаря (ASCII).md")
+
+    if os.path.exists(caesar_ascii_file_path):
+        with open(caesar_ascii_file_path, "a", encoding="utf-8") as ca_open_file:
+            ca_open_file.write(f"| {simple_time()} | {start_string} | {bias} | {result} |\n")
+    else:
+        with open(caesar_ascii_file_path, "a", encoding="utf-8") as ca_open_file:
+            ca_open_file.write(
+                            f"Откройте файл в Obsidian, либо другой программе, поддерживающей MarkDown, чтобы просмотреть таблицу\n"
+                            +f"\n"
+                            +f"| Дата | Первичная строка | Смещение | Зашифрованная строка |\n"
+                            +f"| --- | --- | --- | --- |\n"
+                            +f"| {simple_time()} | {start_string} | {bias} | {result} |\n"
+                            )
+    return 0
+
+
+def file_caesar_dictionary_write(text, shift, result):
+    caesar_dictionary_file_path = os.path.join(log_path(), "7 - Шифр Цезаря (Словарь).md")
+
+    if os.path.exists(caesar_dictionary_file_path):
+        with open(caesar_dictionary_file_path, "a", encoding="utf-8") as ca_open_file:
+            ca_open_file.write(f"| {simple_time()} | {text} | {shift} | {result}\n")
+    else:
+        with open(caesar_dictionary_file_path, "a", encoding="utf-8") as ca_open_file:
+            ca_open_file.write(
+                            f"Откройте файл в Obsidian, либо другой программе, поддерживающей MarkDown, чтобы просмотреть таблицу\n"
+                            +f"\n"
+                            +f"| Дата | Первичная строка | Смещение | Зашифрованная строка |\n"
+                            +f"| --- | --- | --- | --- |\n"
+                            +f"| {simple_time()} | {text} | {shift} | {result} |\n"
                             )
     return 0

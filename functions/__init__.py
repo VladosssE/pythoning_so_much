@@ -2,11 +2,14 @@ from .arithmetic_operations import *
 from .square_root import *
 from .factorial import *
 from .arrays import *
+from .matrix import *
+from .caesar_codes import *
 from .create_all_files import *
 from .clear_console import *
 from .logging import *
 from .display_functions import *
 from .display_time import *
+
 __all__ = [
         'plus',
         'minus',
@@ -23,6 +26,9 @@ __all__ = [
         'array_add',
         'array_change',
         'array_delete',
+        'matrix_create',
+        'caesar_ascii',
+        'caesar_dictionary',
         'write_log',
         'log_path',
         'simple_time',
@@ -31,6 +37,9 @@ __all__ = [
         'file_square_root_write',
         'file_factorial_write',
         'file_array_write',
+        'file_matrix_write',
+        'file_caesar_ascii_write',
+        'file_caesar_dictionary_write',
         'log_check',
         'log_read',
         'log_create',
@@ -52,5 +61,15 @@ __all__ = [
         'display_array_item_add',
         'display_array_item_change',
         'display_array_item_delete',
-        'display_log_settings'
+        'display_matrix',
+        'display_matrix_input',
+        'display_matrix_math',
+        'display_caesar_ascii',
+        'display_caesar_ascii_input',
+        'display_caesar_ascii_math',
+        'display_caesar_dictionary',
+        'display_caesar_dictionary_input',
+        'display_caesar_dictionary_math',
+        'display_log_settings',
+        'display_ansi_escape_codes'
         ]

@@ -14,7 +14,11 @@ def display_main():
     [ 2 ] [ Квадратное уравнение                           ]
     [ 3 ] [ Факториал                                      ]
     [ 4 ] [ Массивы                                        ]
-    [ 0 ] [ Настройки логирования                          ]
+    [ 5 ] [ Матрицы                                        ]
+    [ 6 ] [ Шифр Цезаря (ASCII)                            ]
+    [ 7 ] [ Шифр Цезаря (Словарь)                          ]
+    [ a ] [ Настройки логирования                          ]
+    [ b ] [ ANSI Escape коды                               ]
     [------------------------------------------------------]
     """
     ).strip())
@@ -210,6 +214,104 @@ def display_array_item_delete(Array, width):
     return Array, width
 
 
+def display_matrix():
+    return print(textwrap.dedent(
+    """
+    [------------------------------------------------------]
+    [                   ВЫБРАНО: Матрицы                   ]
+    [     Выводит простую матрицу из введенных значений    ]
+    [------------------------------------------------------]
+    """
+    ).strip())
+
+
+def display_matrix_input():
+    try:
+        a = int(input("[ Введите количество столбцов в матрице ] = "))
+        b = int(input("[ Введите количество строк в матрице ] = "))
+    except ValueError:
+        print("\033[31m\n[ Ошибка: введено не числовое значение ]\033[0m")
+        write_log("Матрицы: ValueError", "Ошибка: Введено не числовое значение")
+    Matrix = matrix_create(a, b)
+    return Matrix
+
+
+def display_matrix_math(Matrix):
+    return print(textwrap.dedent(
+    f"""
+    [ Матрица ] {Matrix}
+    """
+    ).strip())
+
+
+def display_caesar_ascii():
+    return print(textwrap.dedent(
+    f"""
+    [------------------------------------------------------]
+    [             ВЫБРАНО: Шифр Цезаря (ASCII)             ]
+    [   Шифрует введенную строку, используя шифр Цезаря    ]
+    [------------------------------------------------------]
+    """
+    ).strip())
+
+
+def display_caesar_ascii_input():
+    try:
+        start_string = input("[ Введите строку ] = ")
+        bias = int(input("[ Введите количество смещений ] = "))
+    except ValueError:
+        print("\033[31m[ Ошибка: введено недопустимое значение ]\033[0m")
+        start_string = "ERROR"
+        bias = 0
+    result = caesar_ascii(start_string, bias)
+    
+    return start_string, bias, result
+
+
+def display_caesar_ascii_math(start_string, bias, result):
+    return print(textwrap.dedent(
+    f"""
+    [ Введенная строка     ] [ {start_string} ]
+    [ Смещение             ] [ {bias} ]
+    [ Зашифрованная строка ] [ {result} ]
+    """
+    ).strip())
+
+
+def display_caesar_dictionary():
+    return print(textwrap.dedent(
+    f"""
+    [------------------------------------------------------]
+    [            ВЫБРАНО: Шифр Цезаря (Словарь)            ]
+    [    Шифрует введенную строку, используя шифр Цезаря   ]
+    [------------------------------------------------------]
+    """
+    ).strip())
+
+
+def display_caesar_dictionary_input():
+    try:
+        text = input("Введите строку: ")
+        shift = int(input("Введите количество смещений: "))
+    except ValueError:
+        print("\033[31m[ Ошибка: Введено недопустимое значение ]\033[0m")
+        write_log("Шифр Цезаря (Словарь): ValueError", "Ошибка: Введено не числовое значение")
+        text = "ERROR"
+        shift = "0"
+    result = caesar_dictionary(text, shift)
+    return text, shift, result
+
+
+def display_caesar_dictionary_math(text, shift, result):
+    return print(textwrap.dedent(
+    f"""
+    [ Введенная строка    ] [ {text} ]
+    [ Количество смещений ] [ {shift} ]
+    [ Полученная строка   ] [ {result} ]
+    """
+    ).strip())
+
+
 def display_log_settings():
     return print(textwrap.dedent(
     """
@@ -220,3 +322,38 @@ def display_log_settings():
     [------------------------------------------------------]
     """
     ).strip())
+
+
+def display_ansi_escape_codes():
+    print("[","".center(50, "-"),"]")
+    print("[","ВЫБРАНО: ANSI Escape коды".center(50),"]")
+    print("[","Используются для вывода цветного текста в консоли".center(50),"]")
+    print("[","".center(50, "-"),"]")
+    print("[ \u001b[30mЧерный цвет текста\u001b[0m         ]",r"[ \u001b[30m    ] [ Ч ]")
+    print("[ \u001b[31mКрасный цвет текста\u001b[0m        ]",r"[ \u001b[31m    ] [ К ]")
+    print("[ \u001b[32mЗеленый цвет текста\u001b[0m        ]",r"[ \u001b[32m    ] [ З ]")
+    print("[ \u001b[33mЖелтый цвет текста\u001b[0m         ]",r"[ \u001b[33m    ] [ Ж ]")
+    print("[ \u001b[34mСиний цвет текста\u001b[0m          ]",r"[ \u001b[34m    ] [ С ]")
+    print("[ \u001b[35mПурпурный цвет текста\u001b[0m      ]",r"[ \u001b[35m    ] [ П ]")
+    print("[ \u001b[36mГолубой цвет текста\u001b[0m        ]",r"[ \u001b[36m    ] [ Г ]")
+    print("[ \u001b[37mБелый цвет текста\u001b[0m          ]",r"[ \u001b[37m    ] [ Б ]")
+    print("[","".center(50, "-"),"]")
+    print("[ \u001b[30;1mЯрко черный цвет текста\u001b[0m    ]",r"[ \u001b[30;1m  ] [ Ч ]")
+    print("[ \u001b[31;1mЯрко красный цвет текста\u001b[0m   ]",r"[ \u001b[31;1m  ] [ К ]")
+    print("[ \u001b[32;1mЯрко зеленый цвет текста\u001b[0m   ]",r"[ \u001b[32;1m  ] [ З ]")
+    print("[ \u001b[33;1mЯрко желтый цвет текста\u001b[0m    ]",r"[ \u001b[33;1m  ] [ Ж ]")
+    print("[ \u001b[34;1mЯрко синий цвет текста\u001b[0m     ]",r"[ \u001b[34;1m  ] [ С ]")
+    print("[ \u001b[35;1mЯрко пурпурный цвет текста\u001b[0m ]",r"[ \u001b[35;1m  ] [ П ]")
+    print("[ \u001b[36;1mЯрко голубой цвет текста\u001b[0m   ]",r"[ \u001b[36;1m  ] [ Г ]")
+    print("[ \u001b[37;1mЯрко белый цвет текста\u001b[0m     ]",r"[ \u001b[37;1m  ] [ Б ]")
+    print("[","".center(50, "-"),"]")
+    print("[ \u001b[40mЧерный цвет фона\u001b[0m           ]",r"[ \u001b[40m    ] [ Ч ]")
+    print("[ \u001b[41mКрасный цвет фона\u001b[0m          ]",r"[ \u001b[41m    ] [ К ]")
+    print("[ \u001b[42mЗеленый цвет фона\u001b[0m          ]",r"[ \u001b[42m    ] [ З ]")
+    print("[ \u001b[43mЖелтый цвет фона\u001b[0m           ]",r"[ \u001b[43m    ] [ Ж ]")
+    print("[ \u001b[44mСиний цвет фона\u001b[0m            ]",r"[ \u001b[44m    ] [ С ]")
+    print("[ \u001b[45mПурпурный цвет фона\u001b[0m        ]",r"[ \u001b[45m    ] [ П ]")
+    print("[ \u001b[46mГолубой цвет фона\u001b[0m          ]",r"[ \u001b[46m    ] [ Г ]")
+    print("[ \u001b[47mБелый цвет фона\u001b[0m            ]",r"[ \u001b[47m    ] [ Б ]")
+    print("[","".center(50, "-"),"]")
+    return 0
