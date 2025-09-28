@@ -15,8 +15,9 @@ def display_main():
     [ 3 ] [ Факториал                                      ]
     [ 4 ] [ Массивы                                        ]
     [ 5 ] [ Матрицы                                        ]
-    [ 6 ] [ Шифр Цезаря (ASCII)                            ]
-    [ 7 ] [ Шифр Цезаря (Словарь)                          ]
+    [ 6 ] [ Сумма матриц                                   ]
+    [ 7 ] [ Шифр Цезаря (ASCII)                            ]
+    [ 8 ] [ Шифр Цезаря (Словарь)                          ]
     [ a ] [ Настройки логирования                          ]
     [ b ] [ ANSI Escape коды                               ]
     [------------------------------------------------------]
@@ -240,6 +241,46 @@ def display_matrix_math(Matrix):
     return print(textwrap.dedent(
     f"""
     [ Матрица ] {Matrix}
+    """
+    ).strip())
+
+
+def display_sum_matrix():
+    return print(textwrap.dedent(
+    """
+    [------------------------------------------------------]
+    [                ВЫБРАНО: Сумма матриц                 ]
+    [           Суммирует две созданные матрицы            ]
+    [------------------------------------------------------]
+    """
+    ).strip())
+
+
+def display_sum_matrix_input():
+    try:
+        a1 = int(input("[ Введите количество столбцов в матрице ] = "))
+        b1 = int(input("[ Введите количество строк в матрице ] = "))
+        a2 = int(input("[ Введите количество столбцов во 2 матрице ] = "))
+        b2 = int(input("[ Введите количество строк во 2 матрице ] = "))
+    except ValueError:
+        print("\033[31m[ Ошибка: введено не числовое значение ]\033[0m")
+        write_log("Сумма матриц: ValueError", "Ошибка: Введено не числовое значение")
+        a1 = 1
+        b1 = 1
+        a2 = 1
+        b2 = 1
+    Matrix = matrix_create(a1, b1)
+    Matrix2 = matrix_create(a2, b2)
+    summed_matrix = matrix_sum(Matrix, Matrix2)
+    return Matrix, Matrix2, summed_matrix
+
+
+def display_sum_matrix_math(Matrix, Matrix2, summed_matrix):
+    return print(textwrap.dedent(
+    f"""
+    [ Первая матрица ] {Matrix}
+    [ Вторая матрица ] {Matrix2}
+    [ Сумма 2 матриц ] {summed_matrix}
     """
     ).strip())
 

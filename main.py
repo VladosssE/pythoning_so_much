@@ -62,7 +62,18 @@ def starting_point():
         finish = input("Любой ввод вернет в главное меню > ")
         return clear_console(), starting_point()
 
-    elif a == "6" or a == "Шифр Цезаря (ASCII)":
+    elif a == "6" or a == "Сумма матриц":
+        clear_console()
+        write_log("Открыта функция Сумма матриц", "Нет")
+        display_sum_matrix()
+        Matrix, Matrix2, summed_matrix = display_sum_matrix_input()
+        display_sum_matrix_math(Matrix, Matrix2, summed_matrix)
+        write_log("Использована функция Сумма матриц", "Нет")
+        file_sum_matrix_write(Matrix, Matrix2, summed_matrix)
+        finish = input("Любой ввод вернет в главное меню > ")
+        return clear_console(), starting_point()
+
+    elif a == "7" or a == "Шифр Цезаря (ASCII)":
         clear_console()
         write_log("Открыта функция Шифр Цезаря (ASCII)", "Нет")
         display_caesar_ascii()
@@ -73,7 +84,7 @@ def starting_point():
         finish = input("Любой ввод вернет в главное меню > ")
         return clear_console(), starting_point()
 
-    elif a == "7" or a == "Шифр Цезаря (Словарь)":
+    elif a == "8" or a == "Шифр Цезаря (Словарь)":
         clear_console()
         write_log("Открыта функция Шифр Цезаря (Словарь)", "Нет")
         display_caesar_dictionary()
