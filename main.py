@@ -1,5 +1,4 @@
 import os
-
 from functions import *
 
 log_create()
@@ -95,7 +94,7 @@ def starting_point():
         finish = input("Любой ввод вернет в главное меню > ")
         return clear_console(), starting_point()
     
-    elif a == "a" or a == "Настройки логирования":
+    elif a == "x" or a == "Настройки логирования":
         clear_console()
         write_log("Открыта функция Настройки логирования", "Нет")
         display_log_settings()
@@ -104,12 +103,84 @@ def starting_point():
         write_log("Использована функция Настройки логирования", "Нет")
         return clear_console(), starting_point()
 
-    elif a == "b" or a == "ANSI Escape коды":
+    elif a == "z" or a == "ANSI Escape коды":
         clear_console()
         write_log("Открыта функция ANSI Escape коды", "Нет")
         display_ansi_escape_codes()
         finish = input("Любой ввод вернет в главное меню > ")
         write_log("Использована функция ANSI Escape коды", "Нет")
+        return clear_console(), starting_point()
+
+    elif a == "a" or a == "Протестировать функцию Арифметические операции":
+        clear_console()
+        write_log("Открыта функция Тестирование функций (Арифметические операции)", "Нет")
+        display_testing_arithmetic()
+        display_testing_arithmetic_math()
+        finish = input("Любой ввод вернет в главное меню > ")
+        write_log("Использована функция Тестирование функций", "Нет")
+        return clear_console(), starting_point()
+
+    elif a == "b" or a == "Протестировать функцию Квадратное уравнение":
+        clear_console()
+        write_log("Открыта функция Тестирование функций (Квадратное уравнение)", "Нет")
+        display_testing_square_root()
+        display_testing_square_root_math()
+        finish = input("Любой ввод вернет в главное меню > ")
+        write_log("Использована функция Тестирование функций", "Нет")
+        return clear_console(), starting_point()
+
+    elif a == "c" or a == "Протестировать функцию Факториал":
+        clear_console()
+        write_log("Открыта функция Тестирование функций (Факториал)", "Нет")
+        display_testing_factorial()
+        display_testing_factorial_math()
+        finish = input("Любой ввод вернет в главное меню > ")
+        write_log("Использована функция Тестирование функций", "Нет")
+        return clear_console(), starting_point()
+
+    elif a == "d" or a == "Протестировать функцию Массивы":
+        clear_console()
+        write_log("Открыта функция Тестирование функций (Массивы)", "Нет")
+        display_testing_array()
+        display_testing_array_math()
+        finish = input("Любой ввод вернет в главное меню > ")
+        write_log("Использована функция Тестирование функций", "Нет")
+        return clear_console(), starting_point()
+
+    elif a == "e" or a == "Протестировать функцию Матрицы":
+        clear_console()
+        write_log("Открыта функция Тестирование функций (Матрицы)", "Нет")
+        display_testing_matrix()
+        display_testing_matrix_math()
+        finish = input("Любой ввод вернет в главное меню > ")
+        write_log("Использована функция Тестирование функций", "Нет")
+        return clear_console(), starting_point()
+
+    elif a == "f" or a == "Протестировать функцию Сумма матриц":
+        clear_console()
+        write_log("Открыта функция Тестирование функций (Сумма матриц)", "Нет")
+        display_testing_sum_matrix()
+        display_testing_sum_matrix_math()
+        finish = input("Любой ввод вернет в главное меню > ")
+        write_log("Использована функция Тестирование функций", "Нет")
+        return clear_console(), starting_point()
+
+    elif a == "g" or a == "Протестировать функцию Шифр Цезаря (ASCII)":
+        clear_console()
+        write_log("Открыта функция Тестирование функций (Шифр Цезаря (ASCII))", "Нет")
+        display_testing_caesar_ascii()
+        display_testing_caesar_ascii_math()
+        finish = input("Любой ввод вернет в главное меню > ")
+        write_log("Использована функция Тестирование функций", "Нет")
+        return clear_console(), starting_point()
+
+    elif a == "h" or a == "Протестировать функцию Шифр Цезаря (Словарь)":
+        clear_console()
+        write_log("Открыта функция Тестирование функций (Шифр Цезаря (Словарь))", "Нет")
+        display_testing_caesar_dictionary()
+        display_testing_caesar_dictionary_math()
+        finish = input("Любой ввод вернет в главное меню > ")
+        write_log("Использована функция Тестирование функций", "Нет")
         return clear_console(), starting_point()
     
     else:

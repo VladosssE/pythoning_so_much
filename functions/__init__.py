@@ -76,5 +76,21 @@ __all__ = [
         'display_caesar_dictionary_input',
         'display_caesar_dictionary_math',
         'display_log_settings',
-        'display_ansi_escape_codes'
+        'display_ansi_escape_codes',
+        'display_testing_arithmetic',
+        'display_testing_arithmetic_math',
+        'display_testing_square_root',
+        'display_testing_square_root_math',
+        'display_testing_factorial',
+        'display_testing_factorial_math',
+        'display_testing_array',
+        'display_testing_array_math',
+        'display_testing_matrix',
+        'display_testing_matrix_math',
+        'display_testing_sum_matrix',
+        'display_testing_sum_matrix_math',
+        'display_testing_caesar_ascii',
+        'display_testing_caesar_ascii_math',
+        'display_testing_caesar_dictionary',
+        'display_testing_caesar_dictionary_math'
         ]

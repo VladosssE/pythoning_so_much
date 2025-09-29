@@ -1,8 +1,6 @@
 import os
-from .arithmetic_operations import *
-from .logging import log_check
 from .display_time import simple_time
-
+from .logging import log_check
 
 def log_path():
     logs_folder = "logs"
@@ -30,6 +28,7 @@ def write_log(message, extra):
         return 0
 
 def file_ao_write(a, b):
+    from .arithmetic_operations import plus, minus, multiply, divide, full_divide, remainder
     ao_file_path = os.path.join(log_path(), "1 - Арифметические операции.md")
 
     if os.path.exists(ao_file_path):

@@ -1,4 +1,8 @@
+from .create_all_files import write_log
 def caesar_ascii(start_string, bias):
+    if not isinstance(bias, (int)):
+        write_log("Шифр Цезаря (ASCII): ValueError", "Ошибка: Введено не числовое значение")
+        return "\033[31m[ Ошибка: Введено недопустимое значение ]\033[0m"
     ascii_char = ""
     A = []
     B = []
@@ -7,14 +11,15 @@ def caesar_ascii(start_string, bias):
     for char in start_string:
         ascii_char = ord(char)
         A.append(ascii_char)
-    print("[ Значения символов по таблице ASCII           ]",A)
+    #print("[ Значения символов по таблице ASCII           ]",A)
 
     for value in A:
         n = (value + bias)
-        if n > 122:
-            n = 65
+        if n < 65 or n > 122:
+            write_log("Шифр Цезаря (ASCII): ValueError", "Внимание: Выход за границы (Смещение < 65 либо > 122)")
+            return "\u001b[33m[ Внимание: Выход за границы (Смещение < 65 либо > 122) ]\u001b[0m"
         B.append(n)
-    print("[ Смещенные значения символов по таблице ASCII ]",B)
+    #print("[ Смещенные значения символов по таблице ASCII ]",B)
     
     for c in B:
         c = chr(c)
@@ -24,6 +29,9 @@ def caesar_ascii(start_string, bias):
     return result
 
 def caesar_dictionary(text, shift):
+    if not isinstance(shift, (int)):
+        write_log("Шифр Цезаря (Словарь): ValueError", "Ошибка: Введено не числовое значение")
+        return "\033[31m[ Ошибка: Введено недопустимое значение ]\033[0m"
     result = ""
     dc = {
         'A': 1,
