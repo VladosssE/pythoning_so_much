@@ -27,23 +27,45 @@ def write_log(message, extra):
     else:
         return 0
 
-def file_ao_write(a, b):
+def file_ao_write(a, b, er_message, operations=None):
     from .arithmetic_operations import plus, minus, multiply, divide, full_divide, remainder
     ao_file_path = os.path.join(log_path(), "1 - Арифметические операции.md")
 
+    all_ops = {
+        "plus": plus,
+        "minus": minus,
+        "multiply": multiply,
+        "divide": divide,
+        "full_divide": full_divide,
+        "remainder": remainder,
+    }
+
+    if operations is None:
+        operations = all_ops.keys()
+
+    results = {}
+    for op_name, func in all_ops.items():
+        if op_name in operations:
+            try:
+                results[op_name] = func(a, b)
+            except Exception as e:
+                results[op_name] = f"Ошибка: {e}"
+        else:
+            results[op_name] = "-"
+
     if os.path.exists(ao_file_path):
         with open(ao_file_path, "a", encoding="utf-8") as file:
-            file.write(f"| {simple_time()} | {a} | {b} | {plus(a, b)} | {minus(a, b)} | {multiply(a, b)} | {divide(a, b)} | {full_divide(a, b)} | {remainder(a, b)} |\n")
+            file.write(f"| {simple_time()} | {a} | {b} | {results['plus']} | {results['minus']} | {results['multiply']} | {results['divide']} | {results['full_divide']} | {results['remainder']} | {er_message} |\n")
     else:
         with open(ao_file_path, "a", encoding="utf-8") as file:
             file.write(
-                            f"Откройте файл в Obsidian, либо другой программе, поддерживающей MarkDown, чтобы просмотреть таблицу\n"
-                            +f"\n"
-                            +f"| Дата | Значение а | Значение b | Сложение | Вычитание | Умножение | Деление | Ц. Деление | Остаток |\n"
-                            +f"| --- | --- | --- | --- | --- | --- | --- | --- | --- |\n"
-                            +f"| {simple_time()} | {a} | {b} | {plus(a, b)} | {minus(a, b)} | {multiply(a, b)} | {divide(a, b)} | {full_divide(a, b)} | {remainder(a, b)} |\n"
-                            )
-    return 0
+                        f"Откройте файл в Obsidian, либо другой программе, поддерживающей MarkDown, чтобы просмотреть таблицу\n"
+                        +f"\n"
+                        +f"| Дата | Состояние | Значение а | Значение b | Сложение | Вычитание | Умножение | Деление | Ц. Деление | Остаток |\n"
+                        +f"| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n"
+                        +f"| {simple_time()} | {er_message} | {a} | {b} | {results['plus']} | {results['minus']} | {results['multiply']} | {results['divide']} | {results['full_divide']} | {results['remainder']} |\n"
+                        )
+    return "Успешно"
 
 def file_square_root_write(formula, D, result):
     sr_file_path = os.path.join(log_path(), "2 - Квадратный уравнение.md")

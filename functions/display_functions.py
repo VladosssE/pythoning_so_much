@@ -19,7 +19,8 @@ def display_main():
     [ 8 ] [ Шифр Цезаря (Словарь)   [ h ] [ Протестировать ][+]
     [---------------------------------------------------------]
     [ x ] [ Настройки логирования                             ]
-    [ z ] [ ANSI Escape коды                                  ]
+    [ y ] [ ANSI Escape коды                                  ]
+    [ z ] [ Настройки ошибок                                  ]
     [---------------------------------------------------------]
     """
     ).strip())
@@ -35,28 +36,86 @@ def display_arithmetic():
     """
     ).strip())
 
+def display_arithmetic_action():
+    return print(textwrap.dedent(
+    """
+    [ 1 ] [ Сложение               ]
+    [ 2 ] [ Вычитание              ]
+    [ 3 ] [ Умножение              ]
+    [ 4 ] [ Деление                ]
+    [ 5 ] [ Целочисленное деление  ]
+    [ 6 ] [ Остаток                ]
+    """
+    ).strip())
 
 def display_arithmetic_input():
     try:
         a = float(input("[   Введите значение a   ] = "))
         b = float(input("[   Введите значение b   ] = "))
     except ValueError:
-        a = "ОШИБКА"
-        b = "ОШИБКА"
+        a = "-"
+        b = "-"
     return a, b
 
     
-def display_arithmetic_math(a, b):
-    return print(textwrap.dedent(
+def display_arithmetic_plus(a, b):
+    op, er_message, result = plus(a, b)
+    print(textwrap.dedent(
     f"""
-    [ Сложение:              ] [ {a} + {b}  ] [ {plus(a, b)} ]
-    [ Вычитание:             ] [ {a} - {b}  ] [ {minus(a, b)} ]
-    [ Умножение:             ] [ {a} * {b}  ] [ {multiply(a, b)} ]
-    [ Деление:               ] [ {a} / {b}  ] [ {divide(a, b)} ]
-    [ Целочисленное деление: ] [ {a} // {b} ] [ {full_divide(a, b)} ]
-    [ Нахождение остатка:    ] [ {a} % {b}  ] [ {remainder(a, b)} ]
+    [ Сложение ] [ {a} + {b} ] [ {result} ] [ {er_message} ]
     """
     ).strip())
+    return op, er_message, result
+
+
+def display_arithmetic_minus(a, b):
+    op, er_message, result = minus(a, b)
+    print(textwrap.dedent(
+    f"""
+    [ Сложение ] [ {a} + {b} ] [ {result} ] [ {er_message} ]
+    """
+    ).strip())
+    return op, er_message, result
+
+
+def display_arithmetic_multiply(a, b):
+    op, er_message, result = multiply(a, b)
+    print(textwrap.dedent(
+    f"""
+    [ Сложение ] [ {a} + {b} ] [ {result} ] [ {er_message} ]
+    """
+    ).strip())
+    return op, er_message, result
+
+
+def display_arithmetic_divide(a, b):
+    op, er_message, result = divide(a, b)
+    print(textwrap.dedent(
+    f"""
+    [ Сложение ] [ {a} + {b} ] [ {result} ] [ {er_message} ]
+    """
+    ).strip())
+    return op, er_message, result
+
+
+def display_arithmetic_full_divide(a, b):
+    op, er_message, result = full_divide(a, b)
+    print(textwrap.dedent(
+    f"""
+    [ Сложение ] [ {a} + {b} ] [ {result} ] [ {er_message} ]
+    """
+    ).strip())
+    return op, er_message, result
+
+
+def display_arithmetic_remainder(a, b):
+    op, er_message, result = remainder(a, b)
+    print(textwrap.dedent(
+    f"""
+    [ Сложение ] [ {a} + {b} ] [ {result} ] [ {er_message} ]
+    """
+    ).strip())
+    return op, er_message, result
 
 
 def display_square_root():
@@ -364,6 +423,18 @@ def display_log_settings():
     ).strip())
 
 
+def display_error_log_settings():
+    return print(textwrap.dedent(
+    """
+    [------------------------------------------------------]
+    [               ВЫБРАНО: Настройки ошибок              ]
+    [    Файл Действия с проектом сохраняет данные ниже    ]
+    [    Откройте ..saves/error_types.txt для изменения    ]
+    [------------------------------------------------------]
+    """
+    ).strip())
+
+
 def display_ansi_escape_codes():
     print("[","".center(50, "-"),"]")
     print("[","ВЫБРАНО: ANSI Escape коды".center(50),"]")
@@ -412,36 +483,69 @@ def display_testing_arithmetic():
 
 
 def display_testing_arithmetic_math():
-    print("[ Сложение ][ a = 1, b = 1 ] =",plus(1, 1))
-    print("[ Сложение ][ a = 1, b = 0 ] =",plus(1, 0))
-    print("[ Сложение ][ a = 1, b = t ] =",plus(1, "t"))
-    print("[ Сложение ][ a = 0, b = t ] =",plus(0, "t"))
-    print()
-    print("[ Вычитание ][ a = 1, b = 1 ] =",minus(1, 1))
-    print("[ Вычитание ][ a = 1, b = 0 ] =",minus(1, 0))
-    print("[ Вычитание ][ a = 1, b = t ] =",minus(1, "t"))
-    print("[ Вычитание ][ a = 0, b = t ] =",minus(0, "t"))
-    print()
-    print("[ Деление ][ a = 1, b = 1 ] =",divide(1, 1))
-    print("[ Деление ][ a = 1, b = 0 ] =",divide(1, 0))
-    print("[ Деление ][ a = 1, b = t ] =",divide(1, "t"))
-    print("[ Деление ][ a = 0, b = t ] =",divide(0, "t"))
-    print()
-    print("[ Целочисленное деление ][ a = 1, b = 1 ] =",full_divide(1, 1))
-    print("[ Целочисленное деление ][ a = 1, b = 0 ] =",full_divide(1, 0))
-    print("[ Целочисленное деление ][ a = 1, b = t ] =",full_divide(1, "t"))
-    print("[ Целочисленное деление ][ a = 0, b = t ] =",full_divide(0, "t"))
-    print()
-    print("[ Умножение ][ a = 1, b = 1 ] =",multiply(1, 1))
-    print("[ Умножение ][ a = 1, b = 0 ] =",multiply(1, 0))
-    print("[ Умножение ][ a = 1, b = t ] =",multiply(1, "t"))
-    print("[ Умножение ][ a = 0, b = t ] =",multiply(0, "t"))
-    print()
-    print("[ Нахождение остатка ][ a = 1, b = 1 ] =",remainder(1, 1))
-    print("[ Нахождение остатка ][ a = 1, b = 0 ] =",remainder(1, 0))
-    print("[ Нахождение остатка ][ a = 1, b = t ] =",remainder(1, "t"))
-    print("[ Нахождение остатка ][ a = 0, b = t ] =",remainder(0, "t"))
-    return 0
+    op, er_message_sum_1, result_sum_1 = plus(1, 1)
+    op, er_message_sum_2, result_sum_2 = plus(1, 0)
+    op, er_message_sum_3, result_sum_3 = plus(1, "t")
+    op, er_message_sum_4, result_sum_4 = plus(0, "t")
+    
+    op, er_message_minus_1, result_minus_1 = minus(1, 1)
+    op, er_message_minus_2, result_minus_2 = minus(1, 0)
+    op, er_message_minus_3, result_minus_3 = minus(1, "t")
+    op, er_message_minus_4, result_minus_4 = minus(0, "t")
+    
+    op, er_message_divide_1, result_divide_1 = divide(1, 1)
+    op, er_message_divide_2, result_divide_2 = divide(1, 0)
+    op, er_message_divide_3, result_divide_3 = divide(1, "t")
+    op, er_message_divide_4, result_divide_4 = divide(0, "t")
+    
+    op, er_message_full_divide_1, result_full_divide_1 = full_divide(1, 1)
+    op, er_message_full_divide_2, result_full_divide_2 = full_divide(1, 0)
+    op, er_message_full_divide_3, result_full_divide_3 = full_divide(1, "t")
+    op, er_message_full_divide_4, result_full_divide_4 = full_divide(0, "t")
+
+    op, er_message_multiply_1, result_multiply_1 = multiply(1, 1)
+    op, er_message_multiply_2, result_multiply_2 = multiply(1, 0)
+    op, er_message_multiply_3, result_multiply_3 = multiply(1, "t")
+    op, er_message_multiply_4, result_multiply_4 = multiply(0, "t")
+
+    op, er_message_remainder_1, result_remainder_1 = remainder(1, 1)
+    op, er_message_remainder_2, result_remainder_2 = remainder(1, 0)
+    op, er_message_remainder_3, result_remainder_3 = remainder(1, "t")
+    op, er_message_remainder_4, result_remainder_4 = remainder(0, "t")
+
+    return print(textwrap.dedent(
+    f"""
+    [ Сложение ][ a = 1, b = 1 ] = [ {result_sum_1} ] [ {er_message_sum_1} ]
+    [ Сложение ][ a = 1, b = 0 ] = [ {result_sum_2} ] [ {er_message_sum_2} ]
+    [ Сложение ][ a = 1, b = t ] = [ {result_sum_3} ] [ {er_message_sum_3} ]
+    [ Сложение ][ a = 0, b = t ] = [ {result_sum_4} ] [ {er_message_sum_4} ]
+    
+    [ Вычитание ][ a = 1, b = 1 ] = [ {result_minus_1} ] [ {er_message_minus_1} ]
+    [ Вычитание ][ a = 1, b = 0 ] = [ {result_minus_2} ] [ {er_message_minus_2} ]
+    [ Вычитание ][ a = 1, b = t ] = [ {result_minus_3} ] [ {er_message_minus_3} ]
+    [ Вычитание ][ a = 0, b = t ] = [ {result_minus_4} ] [ {er_message_minus_4} ]
+    
+    [ Деление ][ a = 1, b = 1 ] = [ {result_divide_1} ] [ {er_message_divide_1} ]
+    [ Деление ][ a = 1, b = 0 ] = [ {result_divide_2} ] [ {er_message_divide_2} ]
+    [ Деление ][ a = 1, b = t ] = [ {result_divide_3} ] [ {er_message_divide_3} ]
+    [ Деление ][ a = 0, b = t ] = [ {result_divide_4} ] [ {er_message_divide_4} ]
+    
+    [ Целочисленное деление ][ a = 1, b = 1 ] = [ {result_full_divide_1} ] [ {er_message_full_divide_1} ]
+    [ Целочисленное деление ][ a = 1, b = 0 ] = [ {result_full_divide_2} ] [ {er_message_full_divide_2} ]
+    [ Целочисленное деление ][ a = 1, b = t ] = [ {result_full_divide_3} ] [ {er_message_full_divide_3} ]
+    [ Целочисленное деление ][ a = 0, b = t ] = [ {result_full_divide_4} ] [ {er_message_full_divide_4} ]
+    
+    [ Умножение ][ a = 1, b = 1 ] = [ {result_multiply_1} ] [ {er_message_multiply_1} ]
+    [ Умножение ][ a = 1, b = 0 ] = [ {result_multiply_2} ] [ {er_message_multiply_2} ]
+    [ Умножение ][ a = 1, b = t ] = [ {result_multiply_3} ] [ {er_message_multiply_3} ]
+    [ Умножение ][ a = 0, b = t ] = [ {result_multiply_4} ] [ {er_message_multiply_4} ]
+    
+    [ Нахождение остатка ][ a = 1, b = 1 ] = [ {result_remainder_1} ] [ {er_message_remainder_1} ]
+    [ Нахождение остатка ][ a = 1, b = 0 ] = [ {result_remainder_2} ] [ {er_message_remainder_2} ]
+    [ Нахождение остатка ][ a = 1, b = t ] = [ {result_remainder_3} ] [ {er_message_remainder_3} ]
+    [ Нахождение остатка ][ a = 0, b = t ] = [ {result_remainder_4} ] [ {er_message_remainder_4} ]
+    """
+    ).strip())
 
 
 def display_testing_square_root():

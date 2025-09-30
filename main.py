@@ -1,7 +1,9 @@
 import os
+import code
 from functions import *
 
 log_create()
+error_log_create()
 
 def starting_point():
     write_log("В главном меню", "Нет")
@@ -11,11 +13,52 @@ def starting_point():
         clear_console()
         write_log("Открыта функция Арифметические операции", "Нет")
         display_arithmetic()
-        a, b = display_arithmetic_input()
-        display_arithmetic_math(a, b)
-        write_log("Использована функция Арифметические операции", "Нет")
-        file_ao_write(a, b)
-        finish = input("Любой ввод вернет в главное меню > ") # Пауза
+        display_arithmetic_action()
+        b = input("> ")
+        if b == "1" or b == "Сложение":
+            a, b = display_arithmetic_input()
+            op, er_message, result = display_arithmetic_plus(a, b)
+            file_ao_write(a, b, er_message, operations=[op])
+            write_log("Использована функция Арифметические операции (Сложение)", "Нет")
+            finish = input("Любой ввод вернет в главное меню > ")
+            
+        elif b == "2" or b == "Вычитание":
+            a, b = display_arithmetic_input()
+            op, er_message, result = display_arithmetic_minus(a, b)
+            file_ao_write(a, b, er_message, operations=[op])
+            write_log("Использована функция Арифметические операции (Вычитание)", "Нет")
+            finish = input("Любой ввод вернет в главное меню > ")
+            
+        elif b == "3" or b == "Умножение":
+            a, b = display_arithmetic_input()
+            op, er_message, result = display_arithmetic_multiply(a, b)
+            file_ao_write(a, b, er_message, operations=[op])
+            write_log("Использована функция Арифметические операции (Умножение)", "Нет")
+            finish = input("Любой ввод вернет в главное меню > ")
+            
+        elif b == "4" or b == "Деление":
+            a, b = display_arithmetic_input()
+            op, er_message, result = display_arithmetic_divide(a, b)
+            file_ao_write(a, b, er_message, operations=[op])
+            write_log("Использована функция Арифметические операции (Деление)", "Нет")
+            finish = input("Любой ввод вернет в главное меню > ")
+            
+        elif b == "5" or b == "Целочисленное деление":
+            a, b = display_arithmetic_input()
+            op, er_message, result = display_arithmetic_full_divide(a, b)
+            file_ao_write(a, b, er_message, operations=[op])
+            write_log("Использована функция Арифметические операции (Целочисленное деление)", "Нет")
+            finish = input("Любой ввод вернет в главное меню > ")
+            
+        elif b == "6" or b == "Остаток":
+            a, b = display_arithmetic_input()
+            op, er_message, result = display_arithmetic_remainder(a, b)
+            file_ao_write(a, b, er_message, operations=[op])
+            write_log("Использована функция Арифметические операции (Остаток)", "Нет")
+            finish = input("Любой ввод вернет в главное меню > ")
+            
+        else:
+            return starting_point()
         return clear_console(), starting_point()
 
     elif a == "2" or a == "Квадратное уравнение":
@@ -103,12 +146,21 @@ def starting_point():
         write_log("Использована функция Настройки логирования", "Нет")
         return clear_console(), starting_point()
 
-    elif a == "z" or a == "ANSI Escape коды":
+    elif a == "y" or a == "ANSI Escape коды":
         clear_console()
         write_log("Открыта функция ANSI Escape коды", "Нет")
         display_ansi_escape_codes()
         finish = input("Любой ввод вернет в главное меню > ")
         write_log("Использована функция ANSI Escape коды", "Нет")
+        return clear_console(), starting_point()
+
+    elif a == "z" or a == "Настройки ошибок":
+        clear_console()
+        write_log("Открыта функция Настройки ошибок", "Нет")
+        display_error_log_settings()
+        error_log_read()
+        finish = input("Любой ввод вернет в главное меню > ")
+        write_log("Использована функция Настройки ошибок", "Нет")
         return clear_console(), starting_point()
 
     elif a == "a" or a == "Протестировать функцию Арифметические операции":
@@ -233,5 +285,5 @@ def array_actions(Array, width):
     else:
         starting_point()
         write_log("Выход из программы", "Нет")
-            
+          
 starting_point()
