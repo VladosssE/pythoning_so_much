@@ -14,56 +14,34 @@ def write_log(message, extra):
     if result_message == True:
         if os.path.exists(main_file_path):
             with open(main_file_path, "a", encoding="utf-8") as file:
-                file.write(f"| {message} | {simple_time()} | {extra} |\n")
+                file.write(f"| {simple_time()} | {message} | {extra} |\n")
         else:
             with open(main_file_path, "a", encoding="utf-8") as file:
                 file.write(
                               f"Откройте файл в Obsidian, либо другой программе, поддерживающей MarkDown, чтобы просмотреть таблицу\n"
                               +f"\n"
-                              +f"| Состояние | Дата | Дополнительно |\n"
+                              +f"| Дата | Состояние | Дополнительно |\n"
                               +f"| --- | --- | --- |\n"
-                              +f"| Файл создан | {simple_time()} | Первое открытие проекта |\n"
+                              +f"| {simple_time()} | Файл создан | Первое открытие проекта |\n"
                               )
     else:
         return 0
 
-def file_ao_write(a, b, er_message, operations=None):
+def file_ao_write(a, b, operation, er_message, result):
     from .arithmetic_operations import plus, minus, multiply, divide, full_divide, remainder
     ao_file_path = os.path.join(log_path(), "1 - Арифметические операции.md")
-
-    all_ops = {
-        "plus": plus,
-        "minus": minus,
-        "multiply": multiply,
-        "divide": divide,
-        "full_divide": full_divide,
-        "remainder": remainder,
-    }
-
-    if operations is None:
-        operations = all_ops.keys()
-
-    results = {}
-    for op_name, func in all_ops.items():
-        if op_name in operations:
-            try:
-                results[op_name] = func(a, b)
-            except Exception as e:
-                results[op_name] = f"Ошибка: {e}"
-        else:
-            results[op_name] = "-"
-
+    
     if os.path.exists(ao_file_path):
         with open(ao_file_path, "a", encoding="utf-8") as file:
-            file.write(f"| {simple_time()} | {a} | {b} | {results['plus']} | {results['minus']} | {results['multiply']} | {results['divide']} | {results['full_divide']} | {results['remainder']} | {er_message} |\n")
+            file.write(f"| {simple_time()} | {operation} | {er_message} | {a} | {b} | {result} |\n")
     else:
         with open(ao_file_path, "a", encoding="utf-8") as file:
             file.write(
                         f"Откройте файл в Obsidian, либо другой программе, поддерживающей MarkDown, чтобы просмотреть таблицу\n"
                         +f"\n"
-                        +f"| Дата | Состояние | Значение а | Значение b | Сложение | Вычитание | Умножение | Деление | Ц. Деление | Остаток |\n"
-                        +f"| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |\n"
-                        +f"| {simple_time()} | {er_message} | {a} | {b} | {results['plus']} | {results['minus']} | {results['multiply']} | {results['divide']} | {results['full_divide']} | {results['remainder']} |\n"
+                        +f"| Дата | Выбрано | Состояние | Значение а | Значение b | Результат |\n"
+                        +f"| --- | --- | --- | --- | --- | --- |\n"
+                        +f"| {simple_time()} | {operation} | {er_message} | {a} | {b} | {result} |\n"
                         )
     return "Успешно"
 

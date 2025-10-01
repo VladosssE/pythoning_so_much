@@ -17,43 +17,43 @@ def starting_point():
         b = input("> ")
         if b == "1" or b == "Сложение":
             a, b = display_arithmetic_input()
-            op, er_message, result = display_arithmetic_plus(a, b)
-            file_ao_write(a, b, er_message, operations=[op])
+            operation, er_message, result = display_arithmetic_plus(a, b)
+            file_ao_write(a, b, operation, er_message, result)
             write_log("Использована функция Арифметические операции (Сложение)", "Нет")
             finish = input("Любой ввод вернет в главное меню > ")
             
         elif b == "2" or b == "Вычитание":
             a, b = display_arithmetic_input()
-            op, er_message, result = display_arithmetic_minus(a, b)
-            file_ao_write(a, b, er_message, operations=[op])
+            operation, er_message, result = display_arithmetic_minus(a, b)
+            file_ao_write(a, b, operation, er_message, result)
             write_log("Использована функция Арифметические операции (Вычитание)", "Нет")
             finish = input("Любой ввод вернет в главное меню > ")
             
         elif b == "3" or b == "Умножение":
             a, b = display_arithmetic_input()
-            op, er_message, result = display_arithmetic_multiply(a, b)
-            file_ao_write(a, b, er_message, operations=[op])
+            operation, er_message, result = display_arithmetic_multiply(a, b)
+            file_ao_write(a, b, operation, er_message, result)
             write_log("Использована функция Арифметические операции (Умножение)", "Нет")
             finish = input("Любой ввод вернет в главное меню > ")
             
         elif b == "4" or b == "Деление":
             a, b = display_arithmetic_input()
-            op, er_message, result = display_arithmetic_divide(a, b)
-            file_ao_write(a, b, er_message, operations=[op])
+            operation, er_message, result = display_arithmetic_divide(a, b)
+            file_ao_write(a, b, operation, er_message, result)
             write_log("Использована функция Арифметические операции (Деление)", "Нет")
             finish = input("Любой ввод вернет в главное меню > ")
             
         elif b == "5" or b == "Целочисленное деление":
             a, b = display_arithmetic_input()
-            op, er_message, result = display_arithmetic_full_divide(a, b)
-            file_ao_write(a, b, er_message, operations=[op])
+            operation, er_message, result = display_arithmetic_full_divide(a, b)
+            file_ao_write(a, b, operation, er_message, result)
             write_log("Использована функция Арифметические операции (Целочисленное деление)", "Нет")
             finish = input("Любой ввод вернет в главное меню > ")
             
         elif b == "6" or b == "Остаток":
             a, b = display_arithmetic_input()
-            op, er_message, result = display_arithmetic_remainder(a, b)
-            file_ao_write(a, b, er_message, operations=[op])
+            operation, er_message, result = display_arithmetic_remainder(a, b)
+            file_ao_write(a, b, operation, er_message, result)
             write_log("Использована функция Арифметические операции (Остаток)", "Нет")
             finish = input("Любой ввод вернет в главное меню > ")
             
