@@ -1,4 +1,5 @@
-from .create_all_files import *
+from .create_all_files import write_log
+
 def plus(a, b):
     operation = "Сложение"
     if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):

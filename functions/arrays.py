@@ -1,11 +1,22 @@
+from .create_all_files import write_log
 def array_create(width):
     Array = []
     count = 1
-    for i in range(width):
-        elements = input(f"[ {count} ] [ Введите элементы массива ] = ")
-        Array.append(elements)
-        count += 1
-    return Array
+    if not isinstance(width, (int)):
+        write_log("Массив: ValueError", "Ошибка: Введено не числовое значение")
+        er_message = "Введено недопустимое значение"
+        Array = "-"
+    elif width == 0:
+        write_log("Массив: ZeroInputError", "Ошибка: Введено нулевое значение")
+        er_message = "Введено нулевое значение"
+        Array = "-"
+    else:
+        for i in range(width):
+            elements = input(f"[ {count} ] [ Введите элементы массива ] = ")
+            Array.append(elements)
+            count += 1
+        er_message = "Успешно"
+    return er_message, Array
 
 
 def array_find(Array, target):
@@ -28,7 +39,7 @@ def array_add(Array, add, pos):
 
 def array_change(Array, change, pos, width):
     if pos > width or pos < 0:
-        return "\033[31m\n[ Ошибка: Позиция не найдена ]\033[0m"
+        return "[ Ошибка: Позиция не найдена ]"
     else:
         Array[pos] = change
         return Array

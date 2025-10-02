@@ -4,24 +4,24 @@ from functions import *
 def display_main():
     return print(textwrap.dedent(
     f"""
-    [---------------------------------------------------------]
-    [ Документ создан   ] [ 06.08.2025 13:59:22               ]
-    [ Документ завершен ] [ 00.00.0000 00:00:00               ]
-    [ Документ открыт   ] [ {simple_time()}               ]
-    [---------------------------------------------------------]
-    [ 1 ] [ Арифметические операции [ a ] [ Протестировать ][+]
-    [ 2 ] [ Квадратное уравнение    [ b ] [ Протестировать ][+]
-    [ 3 ] [ Факториал               [ c ] [ Протестировать ][+]
-    [ 4 ] [ Массивы                 [ d ] [ Протестировать ][-]
-    [ 5 ] [ Матрицы                 [ e ] [ Протестировать ][-]
-    [ 6 ] [ Сумма матриц            [ f ] [ Протестировать ][-]
-    [ 7 ] [ Шифр Цезаря (ASCII)     [ g ] [ Протестировать ][+]
-    [ 8 ] [ Шифр Цезаря (Словарь)   [ h ] [ Протестировать ][+]
-    [---------------------------------------------------------]
-    [ x ] [ Настройки логирования                             ]
-    [ y ] [ ANSI Escape коды                                  ]
-    [ z ] [ Настройки ошибок                                  ]
-    [---------------------------------------------------------]
+    [-------------------------------------------]
+    [ Документ создан   ] [ 06.08.2025 13:59:22 ]
+    [ Документ завершен ] [ 00.00.0000 00:00:00 ]
+    [ Документ открыт   ] [ {simple_time()} ]
+    [-------------------------------------------]
+    [ 1 ][ Арифметические операции              ]
+    [ 2 ][ Квадратное уравнение                 ]
+    [ 3 ][ Факториал                            ]
+    [ 4 ][ Массивы                              ]
+    [ 5 ][ Матрицы                              ]
+    [ 6 ][ Сумма матриц                         ]
+    [ 7 ][ Шифр Цезаря (ASCII)                  ]
+    [ 8 ][ Шифр Цезаря (Словарь)                ]
+    [-------------------------------------------]
+    [ x ][ Настройки логирования                ]
+    [ y ][ ANSI Escape коды                     ]
+    [ z ][ Настройки ошибок                     ]
+    [-------------------------------------------]
     """
     ).strip())
 
@@ -36,6 +36,7 @@ def display_arithmetic():
     """
     ).strip())
 
+
 def display_arithmetic_action():
     return print(textwrap.dedent(
     """
@@ -48,11 +49,13 @@ def display_arithmetic_action():
     """
     ).strip())
 
+
 def display_arithmetic_input():
     try:
         a = float(input("[   Введите значение a   ] = "))
         b = float(input("[   Введите значение b   ] = "))
     except ValueError:
+        print("[ Ошибка: введено недопустимое значение ]")
         a = "-"
         b = "-"
     return a, b
@@ -135,24 +138,24 @@ def display_square_root_input():
         b = int(input("[ Введите значение b ] = "))
         c = int(input("[ Введите значение c ] = "))
     except ValueError:
-        print("\033[31m[ Ошибка: Введено не числовое значение ]\033[0m")
-        write_log("Квадратное уравнение: ValueError", "Ошибка: Введено не числовое значение")
-        a = 1
-        b = 1
-        c = 1
+        a = "-"
+        b = "-"
+        c = "-"
         
-    formula = square_root_formula(a, b, c)
-    D = discriminant(a, b, c)
-    result = square_root_mathing(a, b, c, D)
-    return formula, D, result
+    er_message, formula = square_root_formula(a, b, c)
+    er_message, D = discriminant(a, b, c)
+    er_message, x1, x2 = square_root_mathing(a, b, c, D)
+    return er_message, formula, D, x1, x2
 
 
-def display_square_root_math(formula, D, result):
+def display_square_root_math(formula, D, x1, x2, er_message):
     return print(textwrap.dedent(
     f"""
-    [ Формула:      ] [ {formula} ]
-    [ Дискриминант: ] [ {D} ]
-    [ Ответ:        ] [ {result} ]
+    [ Состояние:     ] [ {er_message} ]
+    [ Формула:       ] [ {formula} ]
+    [ Дискриминант:  ] [ {D} ]
+    [ Первый корень: ] [ {x1} ]
+    [ Второй корень: ] [ {x2} ]
     """
     ).strip())
 
@@ -172,18 +175,18 @@ def display_factorial_input():
     try:
         num = int(input("[ Введите число ] = "))
     except ValueError:
-        print("\033[31m[ Ошибка: Введено не числовое значение ]\033[0m")
-        write_log("Факториал: ValueError", "Ошибка: Введено не числовое значение")
-        num = 1
+        print("[ Ошибка: введено недопустимое значение ]")
+        num = "-"
         
-    factorial = fact(num)
-    return num, factorial
+    er_message, factorial = fact(num)
+    return num, er_message, factorial
 
 
-def display_factorial_math(num, factorial):
+def display_factorial_math(num, er_message, factorial):
     return print(textwrap.dedent(
     f"""
     [ Введено значение ] [ {num} ]
+    [ Состояние        ] [ {er_message} ]
     [ Факториал равен  ] [ {factorial} ]
     """
     ).strip())
@@ -204,11 +207,10 @@ def display_array_input():
     try:
         width = int(input("[ Введите количество элементов в массиве ] = "))
     except ValueError:
-        print("\033[31m[ Ошибка: Введено не числовое значение ]\033[0m")
-        write_log("Массив: ValueError", "Ошибка: Введено не числовое значение")
-        width = 0
-    Array = array_create(width)
-    return Array, width
+        print("[ Ошибка: введено недопустимое значение ]")
+        width = "-"
+    er_message, Array = array_create(width)
+    return er_message, Array, width
 
 
 def display_array_math(Array):
@@ -244,7 +246,7 @@ def display_array_item_add(Array, width):
         add = input("Какой элемент хотите добавить? > ")
         pos = int(input("В какую позицию хотите добавить? > "))
     except ValueError:
-        print("\033[31m[ Ошибка: Введено недопустимое значение ]\033[0m")
+        print("[ Ошибка: Введено недопустимое значение ]")
         write_log("Массивы: Добавление элементов: ValueError", "Ошибка: Введено недопустимое значение")
         return Array, width
     print(array_add(Array, add, pos))
@@ -257,7 +259,7 @@ def display_array_item_change(Array, width):
         pos = int(input("В какой позиции хотите изменить значение? > "))
         change = input("Новое значение > ")
     except ValueError:
-        print("\033[31m\n[ Ошибка: Введено недопустимое значение ]\033[0m")
+        print("[ Ошибка: Введено недопустимое значение ]")
         write_log("Массивы: Изменение элементов: ValueError", "Ошибка: Введено недопустимое значение")
         return array_actions(Array, width)
     print(array_change(Array, change, pos, width))
@@ -287,18 +289,17 @@ def display_matrix_input():
         a = int(input("[ Введите количество столбцов в матрице ] = "))
         b = int(input("[ Введите количество строк в матрице ] = "))
     except ValueError:
-        print("\033[31m[ Ошибка: введено не числовое значение ]\033[0m")
-        write_log("Матрицы: ValueError", "Ошибка: Введено не числовое значение")
-        a = 0
-        b = 0
-    Matrix = matrix_create(a, b)
-    return Matrix
+        print("[ Ошибка: введено недопустимое значение ]")
+        a = "-"
+        b = "-"
+    er_message, Matrix = matrix_create(a, b)
+    return er_message, Matrix
 
 
-def display_matrix_math(Matrix):
+def display_matrix_math(er_message, Matrix):
     return print(textwrap.dedent(
     f"""
-    [ Матрица ] {Matrix}
+    [ Матрица ] [ {er_message} ] {Matrix}
     """
     ).strip())
 
@@ -316,21 +317,20 @@ def display_sum_matrix():
 
 def display_sum_matrix_input():
     try:
-        a1 = int(input("[ Введите количество столбцов в матрице ] = "))
-        b1 = int(input("[ Введите количество строк в матрице ] = "))
-        a2 = int(input("[ Введите количество столбцов во 2 матрице ] = "))
-        b2 = int(input("[ Введите количество строк во 2 матрице ] = "))
+        a1 = int(input("[ 1 ] [ Введите количество столбцов в матрице ] = "))
+        b1 = int(input("[ 1 ] [ Введите количество строк в матрице ] = "))
+        a2 = int(input("[ 2 ] [ Введите количество столбцов во 2 матрице ] = "))
+        b2 = int(input("[ 2 ] [ Введите количество строк во 2 матрице ] = "))
     except ValueError:
-        print("\033[31m[ Ошибка: введено не числовое значение ]\033[0m")
-        write_log("Сумма матриц: ValueError", "Ошибка: Введено не числовое значение")
-        a1 = 1
-        b1 = 1
-        a2 = 1
-        b2 = 1
-    Matrix = matrix_create(a1, b1)
-    Matrix2 = matrix_create(a2, b2)
-    summed_matrix = matrix_sum(Matrix, Matrix2)
-    return Matrix, Matrix2, summed_matrix
+        print("[ Ошибка: введено недопустимое значение ]")
+        a1 = "-"
+        b1 = "-"
+        a2 = "-"
+        b2 = "-"
+    er_message, Matrix = matrix_create(a1, b1)
+    er_message, Matrix2 = matrix_create(a2, b2)
+    er_message, summed_matrix = matrix_sum(Matrix, Matrix2)
+    return er_message, Matrix, Matrix2, summed_matrix
 
 
 def display_sum_matrix_math(Matrix, Matrix2, summed_matrix):
@@ -359,18 +359,18 @@ def display_caesar_ascii_input():
         start_string = input("[ Введите строку ] = ")
         bias = int(input("[ Введите количество смещений ] = "))
     except ValueError:
-        print("\033[31m[ Ошибка: введено недопустимое значение ]\033[0m")
-        start_string = "ERROR"
-        bias = 0
-    result = caesar_ascii(start_string, bias)
+        print("[ Ошибка: введено недопустимое значение ]")
+        bias = "-"
+    er_message, result = caesar_ascii(start_string, bias)
     
-    return start_string, bias, result
+    return start_string, bias, er_message, result
 
 
-def display_caesar_ascii_math(start_string, bias, result):
+def display_caesar_ascii_math(start_string, bias, er_message, result):
     return print(textwrap.dedent(
     f"""
     [ Введенная строка     ] [ {start_string} ]
+    [ Состояние            ] [ {er_message} ]
     [ Смещение             ] [ {bias} ]
     [ Зашифрованная строка ] [ {result} ]
     """
@@ -393,18 +393,17 @@ def display_caesar_dictionary_input():
         text = input("Введите строку: ")
         shift = int(input("Введите количество смещений: "))
     except ValueError:
-        print("\033[31m[ Ошибка: Введено недопустимое значение ]\033[0m")
-        write_log("Шифр Цезаря (Словарь): ValueError", "Ошибка: Введено не числовое значение")
-        text = "ERROR"
-        shift = "0"
-    result = caesar_dictionary(text, shift)
-    return text, shift, result
+        print("[ Ошибка: Введено недопустимое значение ]")
+        shift = "-"
+    er_message, result = caesar_dictionary(text, shift)
+    return text, shift, er_message, result
 
 
-def display_caesar_dictionary_math(text, shift, result):
+def display_caesar_dictionary_math(text, shift, er_message, result):
     return print(textwrap.dedent(
     f"""
     [ Введенная строка    ] [ {text} ]
+    [ Состояние           ] [ {er_message} ]
     [ Количество смещений ] [ {shift} ]
     [ Полученная строка   ] [ {result} ]
     """
@@ -467,223 +466,4 @@ def display_ansi_escape_codes():
     print("[ \u001b[46mГолубой цвет фона\u001b[0m          ]",r"[ \u001b[46m    ] [ Г ]")
     print("[ \u001b[47mБелый цвет фона\u001b[0m            ]",r"[ \u001b[47m    ] [ Б ]")
     print("[","".center(50, "-"),"]")
-    return 0
-
-
-def display_testing_arithmetic():
-    return print(textwrap.dedent(
-    """
-    [------------------------------------------------------]
-    [             ВЫБРАНО: Тестирование функций            ]
-    [     Тестирует все функции, вводя различные данные    ]
-    [      ВЫБРАННАЯ ФУНКЦИЯ: Арифметические операции      ]
-    [------------------------------------------------------]
-    """
-    ).strip())
-
-
-def display_testing_arithmetic_math():
-    op, er_message_sum_1, result_sum_1 = plus(1, 1)
-    op, er_message_sum_2, result_sum_2 = plus(1, 0)
-    op, er_message_sum_3, result_sum_3 = plus(1, "t")
-    op, er_message_sum_4, result_sum_4 = plus(0, "t")
-    
-    op, er_message_minus_1, result_minus_1 = minus(1, 1)
-    op, er_message_minus_2, result_minus_2 = minus(1, 0)
-    op, er_message_minus_3, result_minus_3 = minus(1, "t")
-    op, er_message_minus_4, result_minus_4 = minus(0, "t")
-    
-    op, er_message_divide_1, result_divide_1 = divide(1, 1)
-    op, er_message_divide_2, result_divide_2 = divide(1, 0)
-    op, er_message_divide_3, result_divide_3 = divide(1, "t")
-    op, er_message_divide_4, result_divide_4 = divide(0, "t")
-    
-    op, er_message_full_divide_1, result_full_divide_1 = full_divide(1, 1)
-    op, er_message_full_divide_2, result_full_divide_2 = full_divide(1, 0)
-    op, er_message_full_divide_3, result_full_divide_3 = full_divide(1, "t")
-    op, er_message_full_divide_4, result_full_divide_4 = full_divide(0, "t")
-
-    op, er_message_multiply_1, result_multiply_1 = multiply(1, 1)
-    op, er_message_multiply_2, result_multiply_2 = multiply(1, 0)
-    op, er_message_multiply_3, result_multiply_3 = multiply(1, "t")
-    op, er_message_multiply_4, result_multiply_4 = multiply(0, "t")
-
-    op, er_message_remainder_1, result_remainder_1 = remainder(1, 1)
-    op, er_message_remainder_2, result_remainder_2 = remainder(1, 0)
-    op, er_message_remainder_3, result_remainder_3 = remainder(1, "t")
-    op, er_message_remainder_4, result_remainder_4 = remainder(0, "t")
-
-    return print(textwrap.dedent(
-    f"""
-    [ Сложение ][ a = 1, b = 1 ] = [ {result_sum_1} ] [ {er_message_sum_1} ]
-    [ Сложение ][ a = 1, b = 0 ] = [ {result_sum_2} ] [ {er_message_sum_2} ]
-    [ Сложение ][ a = 1, b = t ] = [ {result_sum_3} ] [ {er_message_sum_3} ]
-    [ Сложение ][ a = 0, b = t ] = [ {result_sum_4} ] [ {er_message_sum_4} ]
-    
-    [ Вычитание ][ a = 1, b = 1 ] = [ {result_minus_1} ] [ {er_message_minus_1} ]
-    [ Вычитание ][ a = 1, b = 0 ] = [ {result_minus_2} ] [ {er_message_minus_2} ]
-    [ Вычитание ][ a = 1, b = t ] = [ {result_minus_3} ] [ {er_message_minus_3} ]
-    [ Вычитание ][ a = 0, b = t ] = [ {result_minus_4} ] [ {er_message_minus_4} ]
-    
-    [ Деление ][ a = 1, b = 1 ] = [ {result_divide_1} ] [ {er_message_divide_1} ]
-    [ Деление ][ a = 1, b = 0 ] = [ {result_divide_2} ] [ {er_message_divide_2} ]
-    [ Деление ][ a = 1, b = t ] = [ {result_divide_3} ] [ {er_message_divide_3} ]
-    [ Деление ][ a = 0, b = t ] = [ {result_divide_4} ] [ {er_message_divide_4} ]
-    
-    [ Целочисленное деление ][ a = 1, b = 1 ] = [ {result_full_divide_1} ] [ {er_message_full_divide_1} ]
-    [ Целочисленное деление ][ a = 1, b = 0 ] = [ {result_full_divide_2} ] [ {er_message_full_divide_2} ]
-    [ Целочисленное деление ][ a = 1, b = t ] = [ {result_full_divide_3} ] [ {er_message_full_divide_3} ]
-    [ Целочисленное деление ][ a = 0, b = t ] = [ {result_full_divide_4} ] [ {er_message_full_divide_4} ]
-    
-    [ Умножение ][ a = 1, b = 1 ] = [ {result_multiply_1} ] [ {er_message_multiply_1} ]
-    [ Умножение ][ a = 1, b = 0 ] = [ {result_multiply_2} ] [ {er_message_multiply_2} ]
-    [ Умножение ][ a = 1, b = t ] = [ {result_multiply_3} ] [ {er_message_multiply_3} ]
-    [ Умножение ][ a = 0, b = t ] = [ {result_multiply_4} ] [ {er_message_multiply_4} ]
-    
-    [ Нахождение остатка ][ a = 1, b = 1 ] = [ {result_remainder_1} ] [ {er_message_remainder_1} ]
-    [ Нахождение остатка ][ a = 1, b = 0 ] = [ {result_remainder_2} ] [ {er_message_remainder_2} ]
-    [ Нахождение остатка ][ a = 1, b = t ] = [ {result_remainder_3} ] [ {er_message_remainder_3} ]
-    [ Нахождение остатка ][ a = 0, b = t ] = [ {result_remainder_4} ] [ {er_message_remainder_4} ]
-    """
-    ).strip())
-
-
-def display_testing_square_root():
-    return print(textwrap.dedent(
-    """
-    [------------------------------------------------------]
-    [             ВЫБРАНО: Тестирование функций            ]
-    [     Тестирует все функции, вводя различные данные    ]
-    [       ВЫБРАННАЯ ФУНКЦИЯ: Квадратное уравнение        ]
-    [------------------------------------------------------]
-    """
-    ).strip())
-
-
-def display_testing_square_root_math():
-    print("[ Формула ][ a = 1, b = 1, c = 1 ] =",square_root_formula(1, 1, 1))
-    print("[ Формула ][ a = 0, b = 0, c = 0 ] =",square_root_formula(0, 0, 0))
-    print("[ Формула ][ a = t, b = 1, c = 0 ] =",square_root_formula("t", 1, 0))
-    print()
-    print("[ Дискриминант ][ a = 1, b = 1, c = 1 ] =",discriminant(1, 1, 1))
-    print("[ Дискриминант ][ a = 0, b = 0, c = 0 ] =",discriminant(0, 0, 0))
-    print("[ Дискриминант ][ a = t, b = 1, c = 0 ] =",discriminant("t", 1, 0))
-    print()
-    print("[ Решение ][ a = 1, b = 1, c = 1, D = 1 ] =",square_root_mathing(1, 1, 1, 1))
-    print("[ Решение ][ a = 1, b = 1, c = 1, D = 0 ] =",square_root_mathing(1, 1, 1, 0))
-    print("[ Решение ][ a = 1, b = 1, c = 1, D = -1 ] =",square_root_mathing(1, 1, 1, -1))
-    print("[ Решение ][ a = 0, b = 0, c = 0, D = 0 ] =",square_root_mathing(0, 0, 0, 0))
-    print("[ Решение ][ a = t, b = 1, c = 0, D = t ] =",square_root_mathing("t", 1, 0, "t"))
-    return 0
-
-
-def display_testing_factorial():
-    return print(textwrap.dedent(
-    """
-    [------------------------------------------------------]
-    [             ВЫБРАНО: Тестирование функций            ]
-    [     Тестирует все функции, вводя различные данные    ]
-    [             ВЫБРАННАЯ ФУНКЦИЯ: Факториал             ]
-    [------------------------------------------------------]
-    """
-    ).strip())
-
-
-def display_testing_factorial_math():
-    print("[ a = 5  ] =",fact(5))
-    print("[ a = 0  ] =",fact(0))
-    print("[ a = -5 ] =",fact(-5))
-    print("[ a = t  ] =",fact("t"))
-    return 0
-
-
-def display_testing_array():
-    return print(textwrap.dedent(
-    """
-    [------------------------------------------------------]
-    [             ВЫБРАНО: Тестирование функций            ]
-    [     Тестирует все функции, вводя различные данные    ]
-    [              ВЫБРАННАЯ ФУНКЦИЯ: Массивы              ]
-    [------------------------------------------------------]
-    """
-    ).strip())
-
-
-def display_testing_array_math():
-    return print("\u001b[36m[ Тестирование данной функции пока что не написано ]\u001b[0m")
-
-
-def display_testing_matrix():
-    return print(textwrap.dedent(
-    """
-    [------------------------------------------------------]
-    [             ВЫБРАНО: Тестирование функций            ]
-    [     Тестирует все функции, вводя различные данные    ]
-    [              ВЫБРАННАЯ ФУНКЦИЯ: Матрицы              ]
-    [------------------------------------------------------]
-    """
-    ).strip())
-
-
-def display_testing_matrix_math():
-    return print("\u001b[36m[ Тестирование данной функции пока что не написано ]\u001b[0m")
-
-
-def display_testing_sum_matrix():
-    return print(textwrap.dedent(
-    """
-    [------------------------------------------------------]
-    [             ВЫБРАНО: Тестирование функций            ]
-    [     Тестирует все функции, вводя различные данные    ]
-    [            ВЫБРАННАЯ ФУНКЦИЯ: Сумма матриц           ]
-    [------------------------------------------------------]
-    """
-    ).strip())
-
-
-def display_testing_sum_matrix_math():
-    return print("\u001b[36m[ Тестирование данной функции пока что не написано ]\u001b[0m")
-
-
-def display_testing_caesar_ascii():
-    return print(textwrap.dedent(
-    """
-    [------------------------------------------------------]
-    [             ВЫБРАНО: Тестирование функций            ]
-    [     Тестирует все функции, вводя различные данные    ]
-    [        ВЫБРАННАЯ ФУНКЦИЯ: Шифр Цезаря (ASCII)        ]
-    [------------------------------------------------------]
-    """
-    ).strip())
-
-
-def display_testing_caesar_ascii_math():
-    print("[ Строка = 'apple', Смещение = '3'  ] =",caesar_ascii("apple", 3))
-    print("[ Строка = 'apple', Смещение = '0'  ] =",caesar_ascii("apple", 0))
-    print("[ Строка = 'apple', Смещение = '-3' ] =",caesar_ascii("apple", -3))
-    print("[ Строка = 'apple', Смещение = '-70' ] =",caesar_ascii("apple", -70))
-    print("[ Строка = 'apple', Смещение = '122' ] =",caesar_ascii("apple", 122))
-    print("[ Строка = 'apple', Смещение = 't' ] =",caesar_ascii("apple", "t"))
-    return 0
-
-
-def display_testing_caesar_dictionary():
-    return print(textwrap.dedent(
-    """
-    [------------------------------------------------------]
-    [             ВЫБРАНО: Тестирование функций            ]
-    [     Тестирует все функции, вводя различные данные    ]
-    [       ВЫБРАННАЯ ФУНКЦИЯ: Шифр Цезаря (Словарь)       ]
-    [------------------------------------------------------]
-    """
-    ).strip())
-
-
-def display_testing_caesar_dictionary_math():
-    print("[ Строка = 'apple', Смещение = '3'  ] =",caesar_dictionary("apple", 3))
-    print("[ Строка = 'apple', Смещение = '0'  ] =",caesar_dictionary("apple", 0))
-    print("[ Строка = 'apple', Смещение = '-3' ] =",caesar_dictionary("apple", -3))
-    print("[ Строка = 'apple', Смещение = '-70' ] =",caesar_dictionary("apple", -70))
-    print("[ Строка = 'apple', Смещение = '122' ] =",caesar_dictionary("apple", 122))
-    print("[ Строка = 'apple', Смещение = 't' ] =",caesar_dictionary("apple", "t"))
     return 0

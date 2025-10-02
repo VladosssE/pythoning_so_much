@@ -1,12 +1,20 @@
-def fact(a):
-    fact = 1
-    if not isinstance(a, (int)):
-        return "\033[31m[ Ошибка: Введено недопустимое значение ]\033[0m"
-    elif a < 0:
-        return "\u001b[33m[ Для отрицательных чисел нет факториала ]\u001b[0m"
-    elif a == 0:
-        return "\u001b[33m[ Факториал 0 равен 1 ]\u001b[0m"
+from .create_all_files import write_log
+def fact(num):
+    factorial = 1
+    if not isinstance(num, (int)):
+        write_log("Факториал: ValueError", "Ошибка: Введено недопустимое значение")
+        er_message = "Введено недопустимое значение"
+        factorial = "-"
+    elif num < 0:
+        write_log("Факториал: NegativeInputError", "Для отрицательных чисел нет факториала")
+        er_message = "Введено отрицательное значение"
+        factorial = "-"
+    elif num == 0:
+        write_log("Факториал: ZeroInputError", "Факториал 0 равен 1")
+        er_message = "Введено нулевое значение"
+        factorial = 1
     else:
-        for i in range(1, a+1):
-            fact = fact * i
-    return fact
+        er_message = "Успешно"
+        for i in range(1, num+1):
+            factorial = factorial * i
+    return er_message, factorial

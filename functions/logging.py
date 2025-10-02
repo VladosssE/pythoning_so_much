@@ -16,12 +16,23 @@ def log_create():
         "Арифметические операции (Целочисленное деление): ZeroDivisionError"
         "Арифметические операции (Нахождение остатка): ZeroDivisionError": True
         "Арифметические операции: ZeroDivisionError": True
-        "Квадратное уравнение: ValueError": True
+        "Квадратный корень: ValueError": True
+        "Квадратный корень (Формула): ValueError": True
+        "Квадратный корень (Формула): ZeroInputError": True
+        "Квадратный корень (Дискриминант): ValueError": True
+        "Квадратный корень (Дискриминант): ZeroInputError": True
+        "Квадратный корень (Решение): ValueError": True
+        "Квадратный корень (Решение): ZeroInputError": True
         "Факториал: ValueError": True
+        "Факториал: NegativeInputError": True
+        "Факториал: ZeroInputError": True
         "Массив: ValueError": True
+        "Массив: ZeroInputError": True
         "Массивы: Добавление элементов ValueError": True
         "Массивы: Изменение элементов ValueError": True
-        "Матрицы: ValueError": True
+        "Матрица: ValueError": True
+        "Матрица: ZeroInputError": True
+        "Матрица: NegativeInputError": True
         "Сумма матриц: ValueError": True
         "Сумма матриц: Несовпадение размеров (Ошибка)": True
         "Шифр Цезаря (ASCII): ValueError": True
@@ -130,12 +141,12 @@ def log_read():
 
 def error_log_create():
     text = textwrap.dedent(
-    """
-    "Введено недопустимое значение": True
-    "На ноль делить нельзя": True
-    "Остатка от нуля не существует": True
-    """
-    ).strip()
+        """
+        "Введено недопустимое значение": True
+        "На ноль делить нельзя": True
+        "Остатка от нуля не существует": True
+        """
+        ).strip()
     saves_folder = "saves"
     os.makedirs(saves_folder, exist_ok=True)
     error_types_file_path = os.path.join(saves_folder, "error_types.txt")
@@ -147,7 +158,7 @@ def error_log_create():
     return er_file
 
 
-def error_log_check(message):
+def error_log_check(er_message):
     saves_folder = "saves"
     os.makedirs(saves_folder, exist_ok=True)
     error_log_types_file_path = os.path.join(saves_folder, "error_types.txt")
@@ -162,10 +173,10 @@ def error_log_check(message):
             value = value_part.strip()
             logs[key] = value
 
-    if message == "Заглушка":
+    if er_message == "Заглушка":
         return logs
     else:
-        message_lower = message.strip().lower()
+        message_lower = er_message.strip().lower()
         logs_lower = {k.lower(): v for k, v in logs.items()}
     
         if message_lower in logs_lower:
@@ -174,14 +185,14 @@ def error_log_check(message):
             elif logs_lower[message_lower] == 'False':
                 return False
             else:
-                return f"Значение для {message} не найдено"
+                return f"Значение для {er_message} не найдено"
         else:
-            return f"{message} не найдено"
+            return f"{er_message} не найдено"
 
 
 def error_log_read():
-    message = "Заглушка"
-    logs = error_log_check(message)
+    er_message = "Заглушка"
+    logs = error_log_check(er_message)
     max_key_len = max(len(key) for key in logs.keys())
     result_part = []
     for counter, (key, value) in enumerate(logs.items(), start=1):
