@@ -29,7 +29,7 @@ def discriminant(a, b, c):
     return er_message, D
 
 def square_root_mathing(a, b, c, D):
-    if not isinstance(a, (int, float)) or not isinstance(b, (int, float)) or not isinstance(c, (int, float)):
+    if not isinstance(a, (int, float)) or not isinstance(b, (int, float)) or not isinstance(c, (int, float)) or not isinstance(D, (int, float)):
         write_log("Квадратный корень (Решение): ValueError", "Ошибка: Введено не числовое значени")
         er_message = "Введено недопустимое значение"
         x1 = "-"
@@ -55,7 +55,6 @@ def square_root_mathing(a, b, c, D):
         except ZeroDivisionError:
             x1 = "-"
             x2 = "-"
-        return x1
     elif D < 0:
         er_message = "Корней нет"
         x1 = "-"

@@ -1,5 +1,4 @@
 import os
-import code
 from functions import *
 
 log_create()

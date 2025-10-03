@@ -1,4 +1,4 @@
-from functions.create_all_files import write_log
+from .create_all_files import write_log
 def caesar_ascii(start_string, bias):
     if not isinstance(bias, (int)):
         write_log("Шифр Цезаря (ASCII): ValueError", "Ошибка: Введено не числовое значение")
@@ -21,8 +21,11 @@ def caesar_ascii(start_string, bias):
             n = (value + bias)
             if n < 65 or n > 122:
                 write_log("Шифр Цезаря (ASCII): ValueError", "Внимание: Выход за границы (Смещение < 65 либо > 122)")
-                er_message = "Внимание: Выход за границы (Смещение < 65 либо > 122)"
-            B.append(n)
+                er_message = "Внимание: Выход за границы (Смещение <65 либо >122)"
+                result = "-"
+                return er_message, result
+            else:
+                B.append(n)
         #print("[ Смещенные значения символов по таблице ASCII ]",B)
     
         for c in B:
@@ -32,6 +35,7 @@ def caesar_ascii(start_string, bias):
         result = "".join(C)
     return er_message, result
 
+#caesar_ascii("apple", -800)
 def caesar_dictionary(text, shift):
     if not isinstance(shift, (int)):
         result = "-"
@@ -68,16 +72,46 @@ def caesar_dictionary(text, shift):
             'X': 24,
             'Y': 25,
             'Z': 26,
-            '1': 27,
-            '2': 28,
-            '3': 29,
-            '4': 30,
-            '5': 31,
-            '6': 32,
-            '7': 33,
-            '8': 34,
-            '9': 35,
-            '0': 36
+            'А': 27,
+            'Б': 28,
+            'В': 29,
+            'Г': 30,
+            'Д': 31,
+            'З': 32,
+            'И': 33,
+            'Й': 34,
+            'К': 35,
+            'Л': 36,
+            'М': 37,
+            'Н': 38,
+            'О': 39,
+            'П': 40,
+            'Р': 41,
+            'С': 42,
+            'Т': 43,
+            'У': 44,
+            'Ф': 45,
+            'Х': 46,
+            'Ц': 47,
+            'Ч': 48,
+            'Ш': 49,
+            'Щ': 50,
+            'Ъ': 51,
+            'Ы': 52,
+            'Ь': 53,
+            'Э': 54,
+            'Ю': 55,
+            'Я': 56,
+            '1': 57,
+            '2': 58,
+            '3': 59,
+            '4': 60,
+            '5': 61,
+            '6': 62,
+            '7': 63,
+            '8': 64,
+            '9': 65,
+            '0': 66,
             }
         num_to_char = {v: k for k, v in dc.items()}
     
@@ -86,7 +120,7 @@ def caesar_dictionary(text, shift):
                 is_lower = char.islower()
                 base_char = char.upper()
                 base_num = dc[base_char]
-                shifted_num = (base_num + shift - 1) % 36 + 1
+                shifted_num = (base_num + shift - 1) % 66 + 1
                 shifted_char = num_to_char[shifted_num]
                 result += shifted_char.lower() if is_lower else shifted_char
             else:
