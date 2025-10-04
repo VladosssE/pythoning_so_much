@@ -261,7 +261,7 @@ def display_array_item_change(Array, width):
     except ValueError:
         print("[ Ошибка: Введено недопустимое значение ]")
         write_log("Массивы: Изменение элементов: ValueError", "Ошибка: Введено недопустимое значение")
-        return array_actions(Array, width)
+        return Array, width
     print(array_change(Array, change, pos, width))
     return Array, width
 

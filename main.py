@@ -170,9 +170,10 @@ def array_actions(Array, width):
     display_array_actions()
     action = input("> ")
     if action == "1" or action == "Поиск по массиву":
-        display_array_item_find(Array, width)
+        Array, width = display_array_item_find(Array, width)
         write_log("Массивы: Поиск по массиву", "Нет")
-        file_array_write(Array)
+        er_message = "Успешно"
+        file_array_write(er_message, Array)
         finish = input("Продолжить? 1/0 > ")
         if finish == "1":
             array_actions(Array, width)
@@ -182,7 +183,8 @@ def array_actions(Array, width):
     elif action == "2" or action == "Добавление элементов":
         display_array_item_add(Array, width)
         write_log("Массивы: Добавление элементов", "Нет")
-        file_array_write(Array)
+        er_message = "Успешно"
+        file_array_write(er_message, Array)
         finish = input("Продолжить? 1/0 > ")
         if finish == "1":
             return array_actions(Array, width)
@@ -192,7 +194,8 @@ def array_actions(Array, width):
     elif action == "3" or action == "Изменение элементов":
         display_array_item_change(Array, width)
         write_log("Массивы: Изменение элементов", "Нет")
-        file_array_write(Array)
+        er_message = "Успешно"
+        file_array_write(er_message, Array)
         finish = input("Продолжить? 1/0 > ")
         if finish == "1":
             return array_actions(Array, width)
@@ -202,7 +205,8 @@ def array_actions(Array, width):
     elif action == "4" or action == "Удаление элементов":
         display_array_item_delete(Array, width)
         write_log("Массивы: Удаление элементов", "Нет")
-        file_array_write(Array)
+        er_message = "Успешно"
+        file_array_write(er_message, Array)
         finish = input("Продолжить? 1/0 > ")
         if finish == "1":
             return array_actions(Array, width)

@@ -46,7 +46,9 @@ def array_change(Array, change, pos, width):
 
 
 def array_delete(Array, delete, width):
-    delete = str(delete)
+    if not isinstance(delete, (str)):
+        print("Введено недопустимое значение")
+        return Array
     how_many_in_array = Array.count(delete)
     how_many_to_remove = min(how_many_in_array, width)
     

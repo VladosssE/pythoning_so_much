@@ -28,6 +28,7 @@ def log_create():
         "Факториал: ZeroInputError": True
         "Массив: ValueError": True
         "Массив: ZeroInputError": True
+        "Массив: NotFoundError": True
         "Массивы: Добавление элементов ValueError": True
         "Массивы: Изменение элементов ValueError": True
         "Матрица: ValueError": True
